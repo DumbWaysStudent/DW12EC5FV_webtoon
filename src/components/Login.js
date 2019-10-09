@@ -60,7 +60,7 @@ class Login extends Component{
                                 
                                 {/* Login Button */}
                                 {this.testRegex() == true && this.state.passwordPlaceHolder != '' ?
-                                    <TouchableOpacity onPress={() => this.props.navigation.navigate('DetailScreen')} style={{backgroundColor: '#42f542', padding:15, width:'90%', alignItems : 'center', marginHorizontal : 15}}>
+                                    <TouchableOpacity onPress={() => this.props.navigation.navigate('HomeScreen')} style={{backgroundColor: '#42f542', padding:15, width:'90%', alignItems : 'center', marginHorizontal : 15}}>
                                         <Text style={{fontSize : 24}}>Login</Text> 
                                     </TouchableOpacity>
                                     : 
@@ -73,7 +73,7 @@ class Login extends Component{
                         <View style={{flex: 1}}>
                             {/* skip Button */}
                             <View style={{flex: 4, flexDirection : 'row', justifyContent : 'center', alignItems : 'flex-end', }}>
-                            <TouchableOpacity onPress={() => this.props.navigation.navigate('DetailScreen')} >
+                            <TouchableOpacity onPress={() => this.props.navigation.navigate('HomeScreen')} >
                                 <Text style={{fontSize : 22, fontWeight : 'bold', color : '#969696'}}>Skip ></Text>
                             </TouchableOpacity>
                             </View>
