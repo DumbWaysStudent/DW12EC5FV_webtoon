@@ -6,10 +6,12 @@ import Login from './src/components/Login'
 import HomeScreen from './src/components/Home'
 import Favorite from './src/components/Favorite'
 import Profile from './src/components/Profile'
+import Details from './src/components/Details'
 
 const appStack = createStackNavigator(
   {
     HomeScreen,
+    Details
   }, {
     headerMode : 'none',
     initialRouteName : 'HomeScreen'

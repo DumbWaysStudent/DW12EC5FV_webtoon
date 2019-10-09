@@ -54,7 +54,25 @@ class HomeScreen extends Component {
                 url : 'https://swebtoon-phinf.pstatic.net/20190501_79/1556712664332rz1Ag_JPEG/thumbnail.jpg'
             }, {
                 title : 'Stranger From Hell',
-                url : 'https://swebtoon-phinf.pstatic.net/20180904_286/15360592406717mhMz_JPEG/thumb_ipad.jpg'
+                url : 'https://swebtoon-phinf.pstatic.net/20180904_286/15360592406717mhMz_JPEG/thumb_ipad.jpg',
+                
+            }],
+            comicList : [{
+                title : 'Ep.1 Pembukaan',
+                url : 'https://swebtoon-phinf.pstatic.net/20190426_97/1556275077945LqnpT_JPEG/thumb_ipad.jpg',
+                like : '1892'
+            }, {
+                title : 'Ep.2 Pembukaan ke 2',
+                url : 'https://s3-ap-southeast-1.amazonaws.com/mia.doripos.com/melia/2018/03/f9a81b3d-suka-suka-suka-suka.jpg',
+                like : '1236'
+            }, {
+                title : 'Ep.3 Pembukaan ke 3',
+                url : 'https://swebtoon-phinf.pstatic.net/20180404_12/1522767631024uBHrp_JPEG/thumb_ipad.jpg',
+                like : '824'
+            }, {
+                title : 'Ep.4 Pembukaan ke 4',
+                url : 'https://swebtoon-phinf.pstatic.net/20140710_240/1404980084194ATjbR_JPEG/19_EC96B8ED84B0ECB298EBB894.jpg',
+                like : '200'
             }]
         }
     }
@@ -103,29 +121,35 @@ class HomeScreen extends Component {
                             arrowSize={0}
                             titleStyle={{color : 'transparent'}}
                             />
-                            <View>
-                                <Text style={{fontSize : 22, fontWeight : 'bold', color : '#4d4f4e'}}>Favoritku</Text>
+                            <View style={{marginVertical : 5, }}>
+                                {/* Ini adalah option Favoritku */}
+                                <Text style={{fontSize : 22, fontWeight : 'bold', color : '#4d4f4e', marginLeft : 5}}>Favoritku</Text>
+                                {/* Berikut flatlits untuk merender gambar */}
                                 <FlatList
                                     data={this.state.favorite}
                                     renderItem={({ item }) => {
                                     return (
                                     <View style={{margin : 5, borderColor : '#D0D0D0', borderStyle : 'solid', borderWidth : 0.5, borderRadius : 5 }}>
-                                        <Image source={{uri : item.url}} style={{width : 150, height : 150, borderRadius : 5}} resizeMode='contain'/>
+                                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Details', {url : item.url, title : item.title, episode : this.state.comicList})}>
+                                            <Image source={{uri : item.url}} style={{width : 150, height : 150, borderRadius : 5}} resizeMode='contain'/>
+                                        </TouchableOpacity>
                                         <Text style={{marginVertical : 10, marginHorizontal : 5}}>{item.title}</Text>
                                     </View>)}}
                                     keyExtractor={item => item.title}
                                     horizontal={true}
                                     showsHorizontalScrollIndicator={false}
                                 />
-                                <Text style={{fontSize : 22, fontWeight : 'bold', color : '#4d4f4e'}}>ALL</Text>
+
+                                {/* Ini adalah option All */}
+                                <Text style={{fontSize : 22, fontWeight : 'bold', color : '#4d4f4e', marginBottom : 5, marginLeft : 5}}>ALL</Text>
                                 <FlatList
                                     data={this.state.suggest}
                                     renderItem={({ item }) => {
                                     return (
                                     <View style={{margin : 5, borderColor : '#D0D0D0', flexDirection : 'row' }}>
-                                        <View style={{borderStyle : 'solid', borderWidth : 0.5, }}>
-                                            <Image source={{uri : item.url}} style={{width : 150, height : 150, }} resizeMode='contain'/>
-                                        </View>
+                                        <TouchableOpacity style={{borderStyle : 'solid', borderWidth : 0.5, }} onPress={() => this.props.navigation.navigate('Details', {url : item.url, title : item.title, episode : this.state.comicList})}>
+                                            <Image source={{uri : item.url}} style={{width : 150, height : 150, }} resizeMode='contain'  />
+                                        </TouchableOpacity>
                                         <View style={{flexDirection : "column",justifyContent : "center", flex : 1}}>
                                             <Text style={{marginVertical : 2, marginHorizontal : 5}}>{item.title}</Text>
                                             <View style={{margin : 5,}}>
