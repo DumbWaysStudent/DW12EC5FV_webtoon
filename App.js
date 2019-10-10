@@ -7,11 +7,13 @@ import HomeScreen from './src/components/Home'
 import Favorite from './src/components/Favorite'
 import Profile from './src/components/Profile'
 import Details from './src/components/Details'
+import EpisodeDetails from './src/components/EpisodeDetails'
 
 const appStack = createStackNavigator(
   {
     HomeScreen,
-    Details
+    Details,
+    EpisodeDetails
   }, {
     headerMode : 'none',
     initialRouteName : 'HomeScreen'

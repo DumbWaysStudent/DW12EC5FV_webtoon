@@ -29,19 +29,84 @@ class HomeScreen extends Component {
               }],
             favorite : [{
                 title : 'My Pre-Weeding',
-                url : 'https://swebtoon-phinf.pstatic.net/20151204_153/1449224910514foxUo_JPEG/thumbnail_ipad.jpg'
+                url : 'https://swebtoon-phinf.pstatic.net/20151204_153/1449224910514foxUo_JPEG/thumbnail_ipad.jpg',
+                episodDetails : [{
+                    no : 1,
+                    url : 'https://mangaku.in/manga/img/2019/10/cef9e0ed7fe65f6ea0820e45-2-d39a83bb7771241cadce2470c714c3f8.jpg'
+                }, {
+                    no : 2,
+                    url : 'https://mangaku.in/manga/img/2019/10/eb9fc2473afdd775a2497eb2-3-b00b15249a1254ea72b562e7698d2caa.jpg'
+                }, {
+                    no : 3,
+                    url : 'https://mangaku.in/manga/img/2019/10/fa8bbd3e06b2c6b5757efd52-4-0b22cd23fcc18230351197d416349954.jpg'
+                }, {
+                    no : 4,
+                    url : 'https://mangaku.in/manga/img/2019/10/fa8bbd3e06b2c6b5757efd52-4-0b22cd23fcc18230351197d416349954.jpg'
+                }]
             }, {
                 title : 'Change',
-                url : 'https://swebtoon-phinf.pstatic.net/20181018_194/1539851046300HG3M3_JPEG/thumb_ipad.jpg'
+                url : 'https://swebtoon-phinf.pstatic.net/20181018_194/1539851046300HG3M3_JPEG/thumb_ipad.jpg',
+                episodDetails : [{
+                    no : 1,
+                    url : 'https://mangaku.in/manga/img/2019/10/cef9e0ed7fe65f6ea0820e45-2-d39a83bb7771241cadce2470c714c3f8.jpg'
+                }, {
+                    no : 2,
+                    url : 'https://mangaku.in/manga/img/2019/10/eb9fc2473afdd775a2497eb2-3-b00b15249a1254ea72b562e7698d2caa.jpg'
+                }, {
+                    no : 3,
+                    url : 'https://mangaku.in/manga/img/2019/10/fa8bbd3e06b2c6b5757efd52-4-0b22cd23fcc18230351197d416349954.jpg'
+                }, {
+                    no : 4,
+                    url : 'https://mangaku.in/manga/img/2019/10/fa8bbd3e06b2c6b5757efd52-4-0b22cd23fcc18230351197d416349954.jpg'
+                }]
             }, {
                 title : 'Untouchable',
-                url : 'https://swebtoon-phinf.pstatic.net/20140710_240/1404980084194ATjbR_JPEG/19_EC96B8ED84B0ECB298EBB894.jpg'
+                url : 'https://swebtoon-phinf.pstatic.net/20140710_240/1404980084194ATjbR_JPEG/19_EC96B8ED84B0ECB298EBB894.jpg',
+                episodDetails : [{
+                    no : 1,
+                    url : 'https://mangaku.in/manga/img/2019/10/cef9e0ed7fe65f6ea0820e45-2-d39a83bb7771241cadce2470c714c3f8.jpg'
+                }, {
+                    no : 2,
+                    url : 'https://mangaku.in/manga/img/2019/10/eb9fc2473afdd775a2497eb2-3-b00b15249a1254ea72b562e7698d2caa.jpg'
+                }, {
+                    no : 3,
+                    url : 'https://mangaku.in/manga/img/2019/10/fa8bbd3e06b2c6b5757efd52-4-0b22cd23fcc18230351197d416349954.jpg'
+                }, {
+                    no : 4,
+                    url : 'https://mangaku.in/manga/img/2019/10/53dd621a4af84830c4683669-5-eaf0b7da5499d2c7ae1f8041fde4818b.jpg'
+                }]
             }, {
                 title : 'Flawless',
-                url : 'https://swebtoon-phinf.pstatic.net/20190604_285/15596413468052196d_JPEG/thumb_ipad.jpg'
+                url : 'https://swebtoon-phinf.pstatic.net/20190604_285/15596413468052196d_JPEG/thumb_ipad.jpg',
+                episodDetails : [{
+                    no : 1,
+                    url : 'https://mangaku.in/manga/img/2019/10/cef9e0ed7fe65f6ea0820e45-2-d39a83bb7771241cadce2470c714c3f8.jpg'
+                }, {
+                    no : 2,
+                    url : 'https://mangaku.in/manga/img/2019/10/eb9fc2473afdd775a2497eb2-3-b00b15249a1254ea72b562e7698d2caa.jpg'
+                }, {
+                    no : 3,
+                    url : 'https://mangaku.in/manga/img/2019/10/fa8bbd3e06b2c6b5757efd52-4-0b22cd23fcc18230351197d416349954.jpg'
+                }, {
+                    no : 4,
+                    url : 'https://mangaku.in/manga/img/2019/10/53dd621a4af84830c4683669-5-eaf0b7da5499d2c7ae1f8041fde4818b.jpg'
+                }]
             }, {
                 title : 'Alice',
-                url : 'https://swebtoon-phinf.pstatic.net/20171018_290/1508298021845pmkUU_JPEG/thumb_ipad.jpg'
+                url : 'https://swebtoon-phinf.pstatic.net/20171018_290/1508298021845pmkUU_JPEG/thumb_ipad.jpg',
+                episodDetails : [{
+                    no : 1,
+                    url : 'https://mangaku.in/manga/img/2019/10/cef9e0ed7fe65f6ea0820e45-2-d39a83bb7771241cadce2470c714c3f8.jpg'
+                }, {
+                    no : 2,
+                    url : 'https://mangaku.in/manga/img/2019/10/eb9fc2473afdd775a2497eb2-3-b00b15249a1254ea72b562e7698d2caa.jpg'
+                }, {
+                    no : 3,
+                    url : 'https://mangaku.in/manga/img/2019/10/fa8bbd3e06b2c6b5757efd52-4-0b22cd23fcc18230351197d416349954.jpg'
+                }, {
+                    no : 4,
+                    url : 'https://mangaku.in/manga/img/2019/10/53dd621a4af84830c4683669-5-eaf0b7da5499d2c7ae1f8041fde4818b.jpg'
+                }]
             }],
             suggest : [{
                 title : 'Purple Hyacith',
@@ -60,19 +125,71 @@ class HomeScreen extends Component {
             comicList : [{
                 title : 'Ep.1 Pembukaan',
                 url : 'https://swebtoon-phinf.pstatic.net/20190426_97/1556275077945LqnpT_JPEG/thumb_ipad.jpg',
-                like : '1892'
+                like : '1892',
+                episodDetails : [{
+                    no : 1,
+                    url : 'https://mangaku.in/manga/img/2019/10/cef9e0ed7fe65f6ea0820e45-2-d39a83bb7771241cadce2470c714c3f8.jpg'
+                }, {
+                    no : 2,
+                    url : 'https://mangaku.in/manga/img/2019/10/eb9fc2473afdd775a2497eb2-3-b00b15249a1254ea72b562e7698d2caa.jpg'
+                }, {
+                    no : 3,
+                    url : 'https://mangaku.in/manga/img/2019/10/fa8bbd3e06b2c6b5757efd52-4-0b22cd23fcc18230351197d416349954.jpg'
+                }, {
+                    no : 4,
+                    url : 'https://mangaku.in/manga/img/2019/10/fa8bbd3e06b2c6b5757efd52-4-0b22cd23fcc18230351197d416349954.jpg'
+                }]
             }, {
                 title : 'Ep.2 Pembukaan ke 2',
                 url : 'https://s3-ap-southeast-1.amazonaws.com/mia.doripos.com/melia/2018/03/f9a81b3d-suka-suka-suka-suka.jpg',
-                like : '1236'
+                like : '1236',
+                episodDetails : [{
+                    no : 1,
+                    url : 'https://mangaku.in/manga/img/2019/10/cef9e0ed7fe65f6ea0820e45-2-d39a83bb7771241cadce2470c714c3f8.jpg'
+                }, {
+                    no : 2,
+                    url : 'https://mangaku.in/manga/img/2019/10/eb9fc2473afdd775a2497eb2-3-b00b15249a1254ea72b562e7698d2caa.jpg'
+                }, {
+                    no : 3,
+                    url : 'https://mangaku.in/manga/img/2019/10/fa8bbd3e06b2c6b5757efd52-4-0b22cd23fcc18230351197d416349954.jpg'
+                }, {
+                    no : 4,
+                    url : 'https://mangaku.in/manga/img/2019/10/fa8bbd3e06b2c6b5757efd52-4-0b22cd23fcc18230351197d416349954.jpg'
+                }]
             }, {
                 title : 'Ep.3 Pembukaan ke 3',
                 url : 'https://swebtoon-phinf.pstatic.net/20180404_12/1522767631024uBHrp_JPEG/thumb_ipad.jpg',
-                like : '824'
+                like : '824',
+                episodDetails : [{
+                    no : 1,
+                    url : 'https://mangaku.in/manga/img/2019/10/cef9e0ed7fe65f6ea0820e45-2-d39a83bb7771241cadce2470c714c3f8.jpg'
+                }, {
+                    no : 2,
+                    url : 'https://mangaku.in/manga/img/2019/10/eb9fc2473afdd775a2497eb2-3-b00b15249a1254ea72b562e7698d2caa.jpg'
+                }, {
+                    no : 3,
+                    url : 'https://mangaku.in/manga/img/2019/10/fa8bbd3e06b2c6b5757efd52-4-0b22cd23fcc18230351197d416349954.jpg'
+                }, {
+                    no : 4,
+                    url : 'https://mangaku.in/manga/img/2019/10/fa8bbd3e06b2c6b5757efd52-4-0b22cd23fcc18230351197d416349954.jpg'
+                }]
             }, {
                 title : 'Ep.4 Pembukaan ke 4',
                 url : 'https://swebtoon-phinf.pstatic.net/20140710_240/1404980084194ATjbR_JPEG/19_EC96B8ED84B0ECB298EBB894.jpg',
-                like : '200'
+                like : '200',
+                episodDetails : [{
+                    no : 1,
+                    url : 'https://mangaku.in/manga/img/2019/10/cef9e0ed7fe65f6ea0820e45-2-d39a83bb7771241cadce2470c714c3f8.jpg'
+                }, {
+                    no : 2,
+                    url : 'https://mangaku.in/manga/img/2019/10/eb9fc2473afdd775a2497eb2-3-b00b15249a1254ea72b562e7698d2caa.jpg'
+                }, {
+                    no : 3,
+                    url : 'https://mangaku.in/manga/img/2019/10/fa8bbd3e06b2c6b5757efd52-4-0b22cd23fcc18230351197d416349954.jpg'
+                }, {
+                    no : 4,
+                    url : 'https://mangaku.in/manga/img/2019/10/fa8bbd3e06b2c6b5757efd52-4-0b22cd23fcc18230351197d416349954.jpg'
+                }]
             }]
         }
     }

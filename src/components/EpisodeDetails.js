@@ -3,7 +3,7 @@ import { Text, View, Image, Dimensions, TouchableOpacity, ScrollView, FlatList }
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Modal from "react-native-modal";
 
-export default class Details extends Component {
+export default class EpisodeDetails extends Component {
 
     constructor(){
         super()
@@ -35,7 +35,7 @@ export default class Details extends Component {
                             </View>
                     </Modal>
                 </View>
-                <View style={{flex : 1}}>
+                <View >
                     <View >
                         <View style={{borderBottomWidth : 4, borderBottomColor : '#D0D0D0', flexDirection : "row", alignItems : "center", justifyContent: 'space-between', paddingHorizontal: 15}}  >
                             <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
@@ -47,37 +47,23 @@ export default class Details extends Component {
                             </TouchableOpacity>
                         </View>
                     </View>
-                    <View style={{flex: 1}}>
-                        <ScrollView>
-                            <View style={{alignItems : "center"}}>
-                                <Image source={{uri : this.props.navigation.getParam('url')}} style={{width : 250, height : 250, borderRadius : 5}} />
-                            </View>
-                            <View style={{backgroundColor : '#ebebeb', paddingVertical : 5}}>
-                                <Text style={{fontSize : 24}}>Klik Untuk Membaca</Text>
-                            </View>
-                            <FlatList
-                                data={this.props.navigation.getParam('episode')}
-                                renderItem={({ item }) =>{
-                                    return(
-                                    <TouchableOpacity style={{flexDirection : 'row', borderWidth : 0.5, borderStyle : 'solid', borderColor : '#ebebeb'}} onPress={() => this.props.navigation.navigate('EpisodeDetails', {episodDetails : item.episodDetails, title : item.title})} >
-                                        <Image source={{uri : item.url}} style={{width : 100, height : 100, borderRadius : 5}} />
-                                        <View style={{justifyContent : 'center', paddingLeft : 15}}>
-                                            <Text style={{fontSize : 18}}>{ item.title }</Text>
-                                            <View style={{flexDirection : "row", }}>
-                                                <TouchableOpacity>
-                                                    <FontAwesome5 name='heart' size={18} />
-                                                </TouchableOpacity>
-                                                <Text>{item.like}</Text>
-                                            </View>
-                                        </View>
-                                    </TouchableOpacity>
-                                    )
-                                }}
-                            />
-                        </ScrollView>
-                    </View>
+                </View>
+                <View style={{flex : 1}}>
+                    <ScrollView>
+                        <FlatList 
+                            data={this.props.navigation.getParam('episodDetails')}
+                            renderItem={({item}) => {
+                                return(
+                                    <View>
+                                        <Image source={{uri : item.url}} style={{width : '100%', height : 1200}} />
+                                    </View>
+                                )
+                            }}
+                        />
+                        {console.log(this.props.navigation.getParam('episodDetails'))}
+                    </ScrollView>
                 </View>
             </View>
         )
     }
-  }
+}
