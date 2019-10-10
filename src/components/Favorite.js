@@ -20,6 +20,8 @@ export default class Favorite extends Component {
                         <View style={{borderWidth : 2, borderColor : '#D0D0D0', flexDirection : "row", alignItems : "center", height : 60}}>
                             <TextInput style={{flex : 1, fontSize : 24,}}></TextInput>
                             <FontAwesome5 name="search" size={24} style={{color : '#D0D0D0',}} />
+                            {console.log(this.props.navigation.dangerouslyGetParent().getParam('userNameEdited'))}
+                            {console.log('test')}
                         </View>
                     </View>
                     <View style={{flex: 13}}>
@@ -35,6 +37,7 @@ export default class Favorite extends Component {
                                             </View>
                                         </TouchableOpacity>
                                     </View>
+                                    
                                 )
                             }}
                         />
@@ -48,7 +51,7 @@ export default class Favorite extends Component {
                             <FontAwesome5 name="star" size={22} color='lime' />
                             <Text style={{fontSize : 12, color : 'lime'}}>Favorite</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={{alignItems : 'center'}} onPress={() => this.props.navigation.navigate('profileStack', {favorite : this.props.navigation.dangerouslyGetParent().getParam('favorite'), comicList : this.props.navigation.dangerouslyGetParent().getParam('comicList'), isLogin : this.props.navigation.dangerouslyGetParent().getParam('isLogin'), userName : this.props.navigation.dangerouslyGetParent().getParam('userName')})}>
+                        <TouchableOpacity style={{alignItems : 'center'}} onPress={() => this.props.navigation.navigate('profileStack', {favorite : this.props.navigation.dangerouslyGetParent().getParam('favorite'), comicList : this.props.navigation.dangerouslyGetParent().getParam('comicList'), isLogin : this.props.navigation.dangerouslyGetParent().getParam('isLogin'), userName : this.props.navigation.dangerouslyGetParent().getParam('userName'), userNameEdit : this.props.navigation.dangerouslyGetParent().getParam('userNameEdited'), isEdited : this.props.navigation.dangerouslyGetParent().getParam('isEdited'), url : this.props.navigation.dangerouslyGetParent().getParam('url')})}>
                             <FontAwesome5 name="user" size={22} color='#676767' />
                             <Text style={{fontSize : 12, color : '#676767'}}>Profile</Text>
                         </TouchableOpacity>

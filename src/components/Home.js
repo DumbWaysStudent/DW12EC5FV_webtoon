@@ -295,7 +295,7 @@ class HomeScreen extends Component {
                             <FontAwesome5 name="star" size={22} color='#676767' />
                             <Text style={{fontSize : 12, color : '#676767'}}>Favorite</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={{alignItems : 'center'}} onPress={() => this.props.navigation.navigate('profileStack', {favorite : this.state.favorite, comicList : this.state.comicList, isLogin : this.props.navigation.dangerouslyGetParent().getParam('isLogin'), userName : this.props.navigation.dangerouslyGetParent().getParam('userName')})} >
+                        <TouchableOpacity style={{alignItems : 'center'}} onPress={() => this.props.navigation.navigate('profileStack', {favorite : this.state.favorite, comicList : this.state.comicList, isLogin : this.props.navigation.dangerouslyGetParent().getParam('isLogin'), userName : this.props.navigation.dangerouslyGetParent().getParam('userName'), url : this.props.navigation.dangerouslyGetParent().getParam('url') })} >
                             <FontAwesome5 name="user" size={22} color='#676767' />
                             <Text style={{fontSize : 12, color : '#676767'}}>Profile</Text>
                         </TouchableOpacity>
