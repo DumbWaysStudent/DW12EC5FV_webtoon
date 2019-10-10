@@ -40,7 +40,7 @@ export default class Favorite extends Component {
                         />
                     </View>
                     <View style={{flex: 1, flexDirection : 'row', justifyContent : 'space-between', paddingHorizontal : 10, paddingTop : 5, borderTopColor : '#D0D0D0', borderTopWidth : 1, marginBottom : 30}}>
-                        <TouchableOpacity style={{alignItems : 'center'}} onPress={() => this.props.navigation.navigate('appStack')}>
+                        <TouchableOpacity style={{alignItems : 'center'}} onPress={() => this.props.navigation.navigate('appStack', {isLogin : this.props.navigation.dangerouslyGetParent().getParam('isLogin'), userName : this.props.navigation.dangerouslyGetParent().getParam('userName')})}>
                             <FontAwesome5 name="heart" size={22} color='#676767' />
                             <Text style={{fontSize : 12, color : '#676767'}}>For You</Text>
                         </TouchableOpacity>
