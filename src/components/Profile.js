@@ -92,7 +92,7 @@ export default class Profile extends Component {
                         <View>
                             {this.state.isLogin == true ?
                             <View>
-                            <TouchableOpacity style={{backgroundColor:'#e0dcdc', padding : 10, marginVertical : 5, marginHorizontal : 5}}>
+                            <TouchableOpacity style={{backgroundColor:'#e0dcdc', padding : 10, marginVertical : 5, marginHorizontal : 5}} onPress={() => this.props.navigation.navigate('CreationScreen')}>
                                 <Text style={{fontSize : 24, fontWeight : '600'}}>My WeHToon Creation</Text>
                             </TouchableOpacity>
                             {/* Login */}
