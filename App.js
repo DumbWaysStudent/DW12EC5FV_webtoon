@@ -47,7 +47,7 @@ const profileStack = createStackNavigator(
     EditWebToon,
     EditEpisode
   }, {
-    initialRouteName : 'EditWebToon',
+    initialRouteName : 'Profile',
     headerMode : "none"
   }
 )
@@ -78,7 +78,7 @@ const AppContainer = createAppContainer(
       profileStack
     },
     {
-      initialRouteName: 'profileStack',
+      initialRouteName: 'appStack',
     }
   )
 );
