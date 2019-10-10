@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, Image, Dimensions, TouchableOpacity, ScrollView, FlatList } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import { TextInput } from 'react-native-gesture-handler';
 
 export default class CreationScreen extends Component {
 
@@ -52,14 +53,21 @@ export default class CreationScreen extends Component {
             <View style={{width : this.state.width, height : this.state.height}}>
                 <View style={{flex : 1}}>
                     <View >
-                        <View style={{borderBottomWidth : 4, borderBottomColor : '#D0D0D0', flexDirection : "row", alignItems : "center", paddingHorizontal: 15}}  >
+                        <View style={{borderBottomWidth : 4, borderBottomColor : '#D0D0D0', flexDirection : "row", alignItems : "center", paddingHorizontal: 15, justifyContent : 'space-between'}}  >
                             <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
                                 <FontAwesome5 name='arrow-left' size={24} />
                             </TouchableOpacity>
-                            <Text style={{fontSize: 28}}> My Web Toon </Text>
+                            <Text style={{fontSize: 28}}> Create WeHToon </Text>
+                            <TouchableOpacity >
+                                <FontAwesome5 name='check' size={24} />
+                            </TouchableOpacity>
                         </View>
                     </View>
-                    <View style={{flex: 1}}>
+                    <Text style={{fontSize : 24, marginTop : 5, marginHorizontal : 10}}>Title</Text>
+                    <View style={{height : 50, borderColor : 'black', borderWidth : 1, width : '90%', alignSelf : "center", alignItems : "center", justifyContent : 'center'}}>
+                        <TextInput placeholder='Title' style={{width : '100%', height : 70, fontSize : 24}} />
+                    </View>
+                    <View style={{flex: 1, marginBottom : 80}}>
                         <FlatList 
                             data={this.state.myWebToon}
                             renderItem={({item}) =>
@@ -76,8 +84,8 @@ export default class CreationScreen extends Component {
                 </View>
 
                 {/* Tombol Tambah */}
-                <TouchableOpacity style={{height : 50, width : 50, position : 'absolute',bottom : 50, right : 25,backgroundColor : 'white', borderRadius: 50 / 2, overflow: "hidden", borderWidth: 3, alignItems : "center"}} onPress={()=> this.props.navigation.navigate('CreationScreenDetails')} >
-                    <FontAwesome5 name='plus' size={44} />
+                <TouchableOpacity style={{height : 50, borderColor : 'black', borderWidth : 1, position : 'absolute', bottom : 30, width : '90%', alignSelf : "center", alignItems : "center", justifyContent : 'center', backgroundColor : 'white'}}>
+                    <Text>Add Episode + </Text>
                 </TouchableOpacity>
             </View>
         )

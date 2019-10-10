@@ -10,6 +10,7 @@ import ProfileEdit from './src/components/ProfileEdit'
 import Details from './src/components/Details'
 import EpisodeDetails from './src/components/EpisodeDetails'
 import CreationScreen from './src/components/CreationScreen'
+import CreationScreenDetails from './src/components/CreationScreenDetails'
 
 const appStack = createStackNavigator(
   {
@@ -26,8 +27,10 @@ const profileStack = createStackNavigator(
   {
     Profile,
     ProfileEdit,
-    CreationScreen
+    CreationScreen,
+    CreationScreenDetails
   }, {
+    initialRouteName : 'Profile',
     headerMode : "none"
   }
 )
