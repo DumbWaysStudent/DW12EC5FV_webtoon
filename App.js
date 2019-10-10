@@ -30,7 +30,9 @@ const profileStack = createStackNavigator(
 
 const favStack = createStackNavigator(
   {
-    Favorite
+    Favorite,
+    Details,
+    EpisodeDetails
   },
   {
     headerMode : 'none'

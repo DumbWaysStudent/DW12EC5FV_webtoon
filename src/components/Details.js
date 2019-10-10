@@ -54,6 +54,7 @@ export default class Details extends Component {
                             </View>
                             <View style={{backgroundColor : '#ebebeb', paddingVertical : 5}}>
                                 <Text style={{fontSize : 24}}>Klik Untuk Membaca</Text>
+                                {console.log(this.props.navigation.getParam('episode'))}
                             </View>
                             <FlatList
                                 data={this.props.navigation.getParam('episode')}

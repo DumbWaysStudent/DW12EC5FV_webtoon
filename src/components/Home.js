@@ -223,10 +223,10 @@ class HomeScreen extends Component {
         return (
             <View style={{width : this.state.width, height : this.state.height}}>
                 <View style={{flex : 1}}>
-                    <View style={{flex: 1,}}>
-                        <View style={{borderWidth : 2, borderColor : '#D0D0D0', flexDirection : "row", alignItems : "center"}}>
-                            <TextInput style={{flex : 1}}></TextInput>
-                            <FontAwesome5 name="search" size={24} style={{color : '#D0D0D0', marginHorizontal : 10}} />
+                    <View style={{flex: 1,  marginBottom : 24}}>
+                        <View style={{borderWidth : 2, borderColor : '#D0D0D0', flexDirection : "row", alignItems : "center", height : 60}}>
+                            <TextInput style={{flex : 1, fontSize : 24,}}></TextInput>
+                            <FontAwesome5 name="search" size={24} style={{color : '#D0D0D0',}} />
                         </View>
                     </View>
                     <View style={{flex: 13}}>
@@ -264,7 +264,7 @@ class HomeScreen extends Component {
                                     renderItem={({ item }) => {
                                     return (
                                     <View style={{margin : 5, borderColor : '#D0D0D0', flexDirection : 'row' }}>
-                                        <TouchableOpacity style={{borderStyle : 'solid', borderWidth : 0.5, }} onPress={() => this.props.navigation.navigate('Details', {url : item.url, title : item.title, episode : this.state.comicList})}>
+                                        <TouchableOpacity style={{borderStyle : 'solid', borderWidth : 0.5, }} onPress={() => this.props.navigation.navigate('Details', {url : item.url, title : item.title, episode : this.state.comicList, test : this.state.favorite})}>
                                             <Image source={{uri : item.url}} style={{width : 150, height : 150, }} resizeMode='contain'  />
                                         </TouchableOpacity>
                                         <View style={{flexDirection : "column",justifyContent : "center", flex : 1}}>
@@ -288,11 +288,11 @@ class HomeScreen extends Component {
                             <FontAwesome5 name="heart" size={22} color='lime' />
                             <Text style={{fontSize : 12, color : 'lime'}}>For You</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={{alignItems : 'center'}} onPress={() => this.props.navigation.navigate('favStack')}>
+                        <TouchableOpacity style={{alignItems : 'center'}} onPress={() => this.props.navigation.navigate('favStack', {favorite : this.state.favorite, comicList : this.state.comicList})}>
                             <FontAwesome5 name="star" size={22} color='#676767' />
                             <Text style={{fontSize : 12, color : '#676767'}}>Favorite</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={{alignItems : 'center'}} onPress={() => this.props.navigation.navigate('profileStack')}>
+                        <TouchableOpacity style={{alignItems : 'center'}} onPress={() => this.props.navigation.navigate('profileStack', {favorite : this.state.favorite, comicList : this.state.comicList})} >
                             <FontAwesome5 name="user" size={22} color='#676767' />
                             <Text style={{fontSize : 12, color : '#676767'}}>Profile</Text>
                         </TouchableOpacity>

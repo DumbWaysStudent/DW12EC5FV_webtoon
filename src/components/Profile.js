@@ -24,16 +24,17 @@ export default class Profile extends Component {
                     </View>
                     <View style={{flex: 13}}>
                         <Text>Profile</Text>
+                        {console.log(this.props.navigation.dangerouslyGetParent().getParam('test'))}
                         <TouchableOpacity style={{backgroundColor : 'lime', padding : 15, justifyContent : "center", alignItems : 'center'}} onPress={() => this.props.navigation.navigate('authStack')}>
                             <Text>Login</Text>
                         </TouchableOpacity>
                     </View>
-                    <View style={{flex: 1, flexDirection : 'row', justifyContent : 'space-between', paddingHorizontal : 10, paddingTop : 5, borderTopColor : '#D0D0D0', borderTopWidth : 1, marginBottom : 30}}>
+                    <View style={{flex: 1, flexDirection : 'row', justifyContent : 'space-between', paddingHorizontal : 10, paddingTop : 5, borderTopColor : '#D0D0D0', borderTopWidth : 1, marginBottom : 29}}>
                         <TouchableOpacity style={{alignItems : 'center'}} onPress={() => this.props.navigation.navigate('appStack')}>
                             <FontAwesome5 name="heart" size={22} color='#676767' />
                             <Text style={{fontSize : 12, color : '#676767'}}>For You</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={{alignItems : 'center'}} onPress={() => this.props.navigation.navigate('favStack')}>
+                        <TouchableOpacity style={{alignItems : 'center'}} onPress={() => this.props.navigation.navigate('favStack', {favorite : this.props.navigation.dangerouslyGetParent().getParam('favorite'), comicList : this.props.navigation.dangerouslyGetParent().getParam('comicList')})} >
                             <FontAwesome5 name="star" size={22} color='#676767' />
                             <Text style={{fontSize : 12, color : '#676767'}}>Favorite</Text>
                         </TouchableOpacity>
