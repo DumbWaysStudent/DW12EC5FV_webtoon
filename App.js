@@ -13,6 +13,7 @@ import CreationScreen from './src/components/CreationScreen'
 import CreationScreenDetails from './src/components/CreationScreenDetails'
 import CreateEpisode from './src/components/CreateEpisode'
 import EditWebToon from './src/components/EditWebToon'
+import EditEpisode from './src/components/EditEpisode'
 
 // Option untuk handler Image dari image picker
 
@@ -43,9 +44,10 @@ const profileStack = createStackNavigator(
     CreationScreen,
     CreationScreenDetails,
     CreateEpisode,
-    EditWebToon
+    EditWebToon,
+    EditEpisode
   }, {
-    initialRouteName : 'Profile',
+    initialRouteName : 'EditWebToon',
     headerMode : "none"
   }
 )
@@ -76,7 +78,7 @@ const AppContainer = createAppContainer(
       profileStack
     },
     {
-      initialRouteName: 'appStack',
+      initialRouteName: 'profileStack',
     }
   )
 );

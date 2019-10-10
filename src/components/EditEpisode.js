@@ -13,7 +13,7 @@ const options = {
     },
   };
 
-export default class EditWebToon extends Component {
+export default class EditEpisode extends Component {
 
     constructor(){
         super()
@@ -113,7 +113,7 @@ export default class EditWebToon extends Component {
                             <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
                                 <FontAwesome5 name='arrow-left' size={24} />
                             </TouchableOpacity>
-                            <Text style={{fontSize: 28}}> Edit WebToon </Text>
+                            <Text style={{fontSize: 28}}> Edit Episode </Text>
                             <TouchableOpacity >
                                 <FontAwesome5 name='check' size={24} />
                             </TouchableOpacity>
@@ -131,17 +131,11 @@ export default class EditWebToon extends Component {
                                 <Image source={{uri : item.url}} style={{width : 100, height : 100, borderWidth : 1, borderColor : 'black'}}></Image>
                                 <View style={{marginHorizontal : 15}} >
                                     <Text style={{fontSize : 18}}>{item.title}</Text>
-                                    <Text style={{color : '#717171'}}>Episode {item.ep} </Text>
+                                    <Text style={{color : '#717171'}}>Image {item.ep} </Text>
                                     {
                                         this.state.isRemoveVisable == true ? 
                                         <TouchableOpacity style={{backgroundColor : '#eb302d', padding : 5, borderRadius :5, width : 100}} onPress={() => this.handleRemove(index)} >
                                             <Text>Remove</Text>
-                                        </TouchableOpacity> : null
-                                    }
-                                    {
-                                        this.state.isEditVisible == true ?
-                                        <TouchableOpacity style={{backgroundColor : '#85eb2d', padding : 5, borderRadius :5, width : 100}} onPress={() => this.props.navigation.navigate('EditEpisode')} >
-                                            <Text>Edit</Text>
                                         </TouchableOpacity> : null
                                     }
                                 </View>
@@ -152,9 +146,6 @@ export default class EditWebToon extends Component {
                 </View>
 
                 {/* Tombol Tambah */}
-                <TouchableOpacity style={{height : 50, borderColor : 'black', borderWidth : 1, position : 'absolute', bottom : 90, width : '90%', alignSelf : "center", alignItems : "center", justifyContent : 'center', backgroundColor : 'white'}} onPress={() => this.handleEdit()}>
-                    <Text>Edit </Text>
-                </TouchableOpacity>
                 <TouchableOpacity style={{height : 50, borderColor : 'black', borderWidth : 1, position : 'absolute', bottom : 30, width : '90%', alignSelf : "center", alignItems : "center", justifyContent : 'center', backgroundColor : 'white'}} onPress={() => this.handleChangeAvatar()}>
                     <Text>Add Episode + </Text>
                 </TouchableOpacity>
