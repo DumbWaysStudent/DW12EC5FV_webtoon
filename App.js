@@ -6,6 +6,7 @@ import Login from './src/components/Login'
 import HomeScreen from './src/components/Home'
 import Favorite from './src/components/Favorite'
 import Profile from './src/components/Profile'
+import ProfileEdit from './src/components/ProfileEdit'
 import Details from './src/components/Details'
 import EpisodeDetails from './src/components/EpisodeDetails'
 
@@ -22,7 +23,8 @@ const appStack = createStackNavigator(
 
 const profileStack = createStackNavigator(
   {
-    Profile
+    Profile,
+    ProfileEdit
   }, {
     headerMode : "none"
   }
