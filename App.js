@@ -11,6 +11,18 @@ import Details from './src/components/Details'
 import EpisodeDetails from './src/components/EpisodeDetails'
 import CreationScreen from './src/components/CreationScreen'
 import CreationScreenDetails from './src/components/CreationScreenDetails'
+import CreateEpisode from './src/components/CreateEpisode'
+
+// Option untuk handler Image dari image picker
+
+const options = {
+  title: 'Select Avatar',
+  customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
+  storageOptions: {
+    skipBackup: true,
+    path: 'images',
+  },
+};
 
 const appStack = createStackNavigator(
   {
@@ -28,7 +40,8 @@ const profileStack = createStackNavigator(
     Profile,
     ProfileEdit,
     CreationScreen,
-    CreationScreenDetails
+    CreationScreenDetails,
+    CreateEpisode
   }, {
     initialRouteName : 'Profile',
     headerMode : "none"

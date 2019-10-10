@@ -2,8 +2,18 @@ import React, { Component } from 'react';
 import { Text, View, Image, Dimensions, TouchableOpacity, ScrollView, FlatList } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { TextInput } from 'react-native-gesture-handler';
+import ImagePicker from 'react-native-image-picker';
 
-export default class CreationScreen extends Component {
+const options = {
+    title: 'Choose Image',
+    takePhotoButtonTitle : null,
+    storageOptions: {
+      skipBackup: true,
+      path: 'images',
+    },
+  };
+
+export default class CreateEpisode extends Component {
 
     constructor(){
         super()
@@ -12,40 +22,37 @@ export default class CreationScreen extends Component {
             height,
             width,
             isEditVisible : false,
-            myWebToon : [{
-                title : 'God Of HighSchool',
-                ep : 27,
-                url : 'https://swebtoon-phinf.pstatic.net/20180205_49/1517820810054nBc8X_JPEG/thumb_ipad.jpg'
-            }, {
-                title : 'Stranger From Hell',
-                ep : 19,
-                url : 'https://swebtoon-phinf.pstatic.net/20190830_275/1567155943013P5ABB_JPEG/_ipad.jpg'
-            }, {
-                title : 'Save Me',
-                ep : 8,
-                url : 'https://swebtoon-phinf.pstatic.net/20190116_292/1547605944791X4yhV_JPEG/10_EC8DB8EB84A4EC9DBC_ipad.jpg'
-            }, {
-                title : 'UnOrdinary',
-                ep : 13,
-                url : 'https://swebtoon-phinf.pstatic.net/20190111_246/1547145672832qC9wR_JPEG/10_EC8DB8EB84A4EC9DBC_ipad.jpg'
-            }, {
-                title : 'God Of HighSchool',
-                ep : 27,
-                url : 'https://swebtoon-phinf.pstatic.net/20180205_49/1517820810054nBc8X_JPEG/thumb_ipad.jpg'
-            }, {
-                title : 'Stranger From Hell',
-                ep : 19,
-                url : 'https://swebtoon-phinf.pstatic.net/20190830_275/1567155943013P5ABB_JPEG/_ipad.jpg'
-            }, {
-                title : 'Save Me',
-                ep : 8,
-                url : 'https://swebtoon-phinf.pstatic.net/20190116_292/1547605944791X4yhV_JPEG/10_EC8DB8EB84A4EC9DBC_ipad.jpg'
-            }, {
-                title : 'UnOrdinary',
-                ep : 13,
-                url : 'https://swebtoon-phinf.pstatic.net/20190111_246/1547145672832qC9wR_JPEG/10_EC8DB8EB84A4EC9DBC_ipad.jpg'
-            }]
+            imageAdd : [],
+            no : 1
         }
+    }
+
+    handleChangeAvatar = () => {
+        ImagePicker.showImagePicker(options, (response) => {
+            console.log('Response = ', response.fileName);
+
+            if (response.didCancel) {
+              console.log('User cancelled image picker');
+            } else if (response.error) {
+              console.log('ImagePicker Error: ', response.error);
+            } else if (response.customButton) {
+              console.log('User tapped custom button: ', response.customButton);
+            } else {
+              const source = { uri: response.uri };
+          
+              // You can also display the image using data:
+              // const source = { uri: 'data:image/jpeg;base64,' + response.data };
+              var obj = {}
+              obj['title'] = 'Image ' + this.state.no
+              obj['url'] = 'data:image/jpeg;base64,' + response.data
+              this.state.imageAdd.push(obj)
+              this.state.no += 1
+              this.setState({
+                imageAdd : this.state.imageAdd,
+                no : this.state.no
+              });
+            }
+        });
     }
 
     render(){
@@ -57,7 +64,7 @@ export default class CreationScreen extends Component {
                             <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
                                 <FontAwesome5 name='arrow-left' size={24} />
                             </TouchableOpacity>
-                            <Text style={{fontSize: 28}}> Create WeHToon </Text>
+                            <Text style={{fontSize: 28}}> Add Image </Text>
                             <TouchableOpacity >
                                 <FontAwesome5 name='check' size={24} />
                             </TouchableOpacity>
@@ -69,7 +76,7 @@ export default class CreationScreen extends Component {
                     </View>
                     <View style={{flex: 1, marginBottom : 80}}>
                         <FlatList 
-                            data={this.state.myWebToon}
+                            data={this.state.imageAdd}
                             renderItem={({item}) =>
                             <TouchableOpacity style={{flexDirection : 'row', marginVertical : 10, marginHorizontal : 10, alignItems : 'center', borderWidth : 0.5, borderColor : 'black'}}>
                                 <Image source={{uri : item.url}} style={{width : 100, height : 100, borderWidth : 1, borderColor : 'black'}}></Image>
@@ -78,7 +85,7 @@ export default class CreationScreen extends Component {
                                     <Text style={{color : '#717171'}}>Episode {item.ep} </Text>
                                     {
                                         this.state.isEditVisible == true ? 
-                                        <TouchableOpacity style={{backgroundColor : '#85eb2d', padding : 5, borderRadius :10, width : 100}} onPress={() => this.props.navigation.navigate('CreateEpisode')} >
+                                        <TouchableOpacity style={{backgroundColor : '#85eb2d', padding : 5, borderRadius :10, width : 100}}>
                                             <Text>+Add Episode</Text>
                                         </TouchableOpacity> : null
                                     }
@@ -90,8 +97,8 @@ export default class CreationScreen extends Component {
                 </View>
 
                 {/* Tombol Tambah */}
-                <TouchableOpacity style={{height : 50, borderColor : 'black', borderWidth : 1, position : 'absolute', bottom : 30, width : '90%', alignSelf : "center", alignItems : "center", justifyContent : 'center', backgroundColor : 'white'}} onPress={() => this.state.isEditVisible ? this.setState({isEditVisible : false}) : this.setState({isEditVisible : true})}>
-                    <Text>Add Episode + </Text>
+                <TouchableOpacity style={{height : 50, borderColor : 'black', borderWidth : 1, position : 'absolute', bottom : 30, width : '90%', alignSelf : "center", alignItems : "center", justifyContent : 'center', backgroundColor : 'white'}} onPress={() => this.handleChangeAvatar()}>
+                    <Text>Add Image + </Text>
                 </TouchableOpacity>
             </View>
         )
