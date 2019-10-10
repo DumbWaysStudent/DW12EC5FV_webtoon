@@ -17,6 +17,8 @@ class Login extends Component{
             isFormatCorrect : false,
             userEmail : "yuhu@gmail.com",
             userPass : '1',
+            userName : 'Dewangga',
+            isLogin : false,
             height,
             width,
         }
@@ -60,7 +62,11 @@ class Login extends Component{
                                 
                                 {/* Login Button */}
                                 {this.testRegex() == true && this.state.passwordPlaceHolder != '' ?
-                                    <TouchableOpacity onPress={() => this.props.navigation.navigate('HomeScreen')} style={{backgroundColor: '#42f542', padding:15, width:'90%', alignItems : 'center', marginHorizontal : 15}}>
+                                    this.state.userEmail == this.state.emailPlaceHolder && this.state.userPass == this.state.passwordPlaceHolder ? 
+                                    <TouchableOpacity onPress={() => this.props.navigation.navigate('profileStack', {userName : this.state.userName, isLogin : true, favorite : this.props.navigation.dangerouslyGetParent().getParam('favorite'), comicList : this.props.navigation.dangerouslyGetParent().getParam('comicList')})} style={{backgroundColor: '#42f542', padding:15, width:'90%', alignItems : 'center', marginHorizontal : 15}}>
+                                        <Text style={{fontSize : 24}}>Login</Text> 
+                                    </TouchableOpacity> : 
+                                    <TouchableOpacity onPress={() => alert('Gagal Login')} style={{backgroundColor: '#42f542', padding:15, width:'90%', alignItems : 'center', marginHorizontal : 15}}>
                                         <Text style={{fontSize : 24}}>Login</Text> 
                                     </TouchableOpacity>
                                     : 
@@ -73,7 +79,7 @@ class Login extends Component{
                         <View style={{flex: 1}}>
                             {/* skip Button */}
                             <View style={{flex: 4, flexDirection : 'row', justifyContent : 'center', alignItems : 'flex-end', }}>
-                            <TouchableOpacity onPress={() => this.props.navigation.navigate('HomeScreen')} >
+                            <TouchableOpacity onPress={() => this.props.navigation.navigate('profileStack', {isLogin : false, userName : ''})} >
                                 <Text style={{fontSize : 22, fontWeight : 'bold', color : '#969696'}}>Skip ></Text>
                             </TouchableOpacity>
                             </View>

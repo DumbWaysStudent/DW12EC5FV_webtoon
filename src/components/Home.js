@@ -17,6 +17,7 @@ class HomeScreen extends Component {
             width,
             interval : null,
             position : 1,
+            isLogin : false,
             banners : [{
                 title: 'Save Me',
                 url: 'https://pbs.twimg.com/media/DxE_lKFUUAA6h-a.jpg'
@@ -198,7 +199,9 @@ class HomeScreen extends Component {
         this.setState({
             interval: setInterval(() => {
                 this.setState({
-                position: this.state.position === this.state.banners.length ? 0 : this.state.position + 1
+                position: this.state.position === this.state.banners.length ? 0 : this.state.position + 1,
+                // cek login status
+                isLogin : this.props.navigation.dangerouslyGetParent().getParam('isLogin')
                 });
           }, 3000)
         });
@@ -288,11 +291,11 @@ class HomeScreen extends Component {
                             <FontAwesome5 name="heart" size={22} color='lime' />
                             <Text style={{fontSize : 12, color : 'lime'}}>For You</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={{alignItems : 'center'}} onPress={() => this.props.navigation.navigate('favStack', {favorite : this.state.favorite, comicList : this.state.comicList})}>
+                        <TouchableOpacity style={{alignItems : 'center'}} onPress={() => this.props.navigation.navigate('favStack', {favorite : this.state.favorite, comicList : this.state.comicList, isLogin : this.props.navigation.dangerouslyGetParent().getParam('isLogin'), userName : this.props.navigation.dangerouslyGetParent().getParam('userName')})}>
                             <FontAwesome5 name="star" size={22} color='#676767' />
                             <Text style={{fontSize : 12, color : '#676767'}}>Favorite</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={{alignItems : 'center'}} onPress={() => this.props.navigation.navigate('profileStack', {favorite : this.state.favorite, comicList : this.state.comicList})} >
+                        <TouchableOpacity style={{alignItems : 'center'}} onPress={() => this.props.navigation.navigate('profileStack', {favorite : this.state.favorite, comicList : this.state.comicList, isLogin : this.props.navigation.dangerouslyGetParent().getParam('isLogin'), userName : this.props.navigation.dangerouslyGetParent().getParam('userName')})} >
                             <FontAwesome5 name="user" size={22} color='#676767' />
                             <Text style={{fontSize : 12, color : '#676767'}}>Profile</Text>
                         </TouchableOpacity>

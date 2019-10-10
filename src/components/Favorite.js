@@ -48,7 +48,7 @@ export default class Favorite extends Component {
                             <FontAwesome5 name="star" size={22} color='lime' />
                             <Text style={{fontSize : 12, color : 'lime'}}>Favorite</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={{alignItems : 'center'}} onPress={() => this.props.navigation.navigate('profileStack', {favorite : this.props.navigation.dangerouslyGetParent().getParam('favorite'), comicList : this.props.navigation.dangerouslyGetParent().getParam('comicList')})}>
+                        <TouchableOpacity style={{alignItems : 'center'}} onPress={() => this.props.navigation.navigate('profileStack', {favorite : this.props.navigation.dangerouslyGetParent().getParam('favorite'), comicList : this.props.navigation.dangerouslyGetParent().getParam('comicList'), isLogin : this.props.navigation.dangerouslyGetParent().getParam('isLogin'), userName : this.props.navigation.dangerouslyGetParent().getParam('userName')})}>
                             <FontAwesome5 name="user" size={22} color='#676767' />
                             <Text style={{fontSize : 12, color : '#676767'}}>Profile</Text>
                         </TouchableOpacity>
