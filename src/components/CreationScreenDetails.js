@@ -11,8 +11,10 @@ export default class CreationScreen extends Component {
         this.state = {
             height,
             width,
+            isAddVisible : false,
             isEditVisible : false,
-            myWebToon : [{
+            myWebToon : [
+                {
                 title : 'God Of HighSchool',
                 ep : 27,
                 url : 'https://swebtoon-phinf.pstatic.net/20180205_49/1517820810054nBc8X_JPEG/thumb_ipad.jpg'
@@ -77,9 +79,15 @@ export default class CreationScreen extends Component {
                                     <Text style={{fontSize : 18}}>{item.title}</Text>
                                     <Text style={{color : '#717171'}}>Episode {item.ep} </Text>
                                     {
-                                        this.state.isEditVisible == true ? 
+                                        this.state.isAddVisible == true ? 
                                         <TouchableOpacity style={{backgroundColor : '#85eb2d', padding : 5, borderRadius :10, width : 100}} onPress={() => this.props.navigation.navigate('CreateEpisode')} >
                                             <Text>+Add Episode</Text>
+                                        </TouchableOpacity> : null
+                                    }
+                                    {
+                                        this.state.isEditVisible == true ?
+                                        <TouchableOpacity style={{backgroundColor : '#eb302d', padding : 5, borderRadius :5, width : 100, alignItems : 'center'}} onPress={() => this.props.navigation.navigate('EditWebToon')} >
+                                            <Text>Edit</Text>
                                         </TouchableOpacity> : null
                                     }
                                 </View>
@@ -90,8 +98,11 @@ export default class CreationScreen extends Component {
                 </View>
 
                 {/* Tombol Tambah */}
-                <TouchableOpacity style={{height : 50, borderColor : 'black', borderWidth : 1, position : 'absolute', bottom : 30, width : '90%', alignSelf : "center", alignItems : "center", justifyContent : 'center', backgroundColor : 'white'}} onPress={() => this.state.isEditVisible ? this.setState({isEditVisible : false}) : this.setState({isEditVisible : true})}>
+                <TouchableOpacity style={{height : 50, borderColor : 'black', borderWidth : 1, position : 'absolute', bottom : 30, width : '90%', alignSelf : "center", alignItems : "center", justifyContent : 'center', backgroundColor : 'white'}} onPress={() => this.state.isAddVisible ? this.setState({isAddVisible : false, isEditVisible : false}) : this.setState({isAddVisible : true, isEditVisible : false})}>
                     <Text>Add Episode + </Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={{height : 50, borderColor : 'black', borderWidth : 1, position : 'absolute', bottom : 90, width : '90%', alignSelf : "center", alignItems : "center", justifyContent : 'center', backgroundColor : 'white'}} onPress={() => this.state.isEditVisible ? this.setState({isAddVisible : false, isEditVisible : false}) : this.setState({isAddVisible : false, isEditVisible : true})}>
+                    <Text>Edit Episode + </Text>
                 </TouchableOpacity>
             </View>
         )

@@ -12,6 +12,7 @@ import EpisodeDetails from './src/components/EpisodeDetails'
 import CreationScreen from './src/components/CreationScreen'
 import CreationScreenDetails from './src/components/CreationScreenDetails'
 import CreateEpisode from './src/components/CreateEpisode'
+import EditWebToon from './src/components/EditWebToon'
 
 // Option untuk handler Image dari image picker
 
@@ -41,7 +42,8 @@ const profileStack = createStackNavigator(
     ProfileEdit,
     CreationScreen,
     CreationScreenDetails,
-    CreateEpisode
+    CreateEpisode,
+    EditWebToon
   }, {
     initialRouteName : 'Profile',
     headerMode : "none"
