@@ -113,7 +113,7 @@ export default class EditWebToon extends Component {
                             <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
                                 <FontAwesome5 name='arrow-left' size={24} />
                             </TouchableOpacity>
-                            <Text style={{fontSize: 28}}> Edit WebToon </Text>
+                            <Text style={{fontSize: 28}}> Edit WeHToon </Text>
                             <TouchableOpacity >
                                 <FontAwesome5 name='check' size={24} />
                             </TouchableOpacity>

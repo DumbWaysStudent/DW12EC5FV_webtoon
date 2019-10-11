@@ -241,7 +241,8 @@ class HomeScreen extends Component {
                             arrowSize={0}
                             titleStyle={{color : 'transparent'}}
                             />
-                            <View style={{marginVertical : 5, }}>
+                            <View style={{marginVertical : 15, }}>
+                                <View style={{backgroundColor : '#D0D0D0' }}>
                                 {/* Ini adalah option Favoritku */}
                                 <Text style={{fontSize : 22, fontWeight : 'bold', color : '#4d4f4e', marginLeft : 5}}>Favoritku</Text>
                                 {/* Berikut flatlits untuk merender gambar */}
@@ -249,7 +250,7 @@ class HomeScreen extends Component {
                                     data={this.state.favorite}
                                     renderItem={({ item }) => {
                                     return (
-                                    <View style={{margin : 5, borderColor : '#D0D0D0', borderStyle : 'solid', borderWidth : 0.5, borderRadius : 5 }}>
+                                    <View style={{margin : 5, borderColor : '#D0D0D0', borderStyle : 'solid', borderWidth : 0.5, borderRadius : 5, }}>
                                         <TouchableOpacity onPress={() => this.props.navigation.navigate('Details', {url : item.url, title : item.title, episode : this.state.comicList})}>
                                             <Image source={{uri : item.url}} style={{width : 150, height : 150, borderRadius : 5}} resizeMode='contain'/>
                                         </TouchableOpacity>
@@ -259,7 +260,7 @@ class HomeScreen extends Component {
                                     horizontal={true}
                                     showsHorizontalScrollIndicator={false}
                                 />
-
+                                </View>
                                 {/* Ini adalah option All */}
                                 <Text style={{fontSize : 22, fontWeight : 'bold', color : '#4d4f4e', marginBottom : 5, marginLeft : 5}}>ALL</Text>
                                 <FlatList

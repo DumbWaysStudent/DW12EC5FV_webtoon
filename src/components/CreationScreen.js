@@ -56,7 +56,7 @@ export default class CreationScreen extends Component {
                             <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
                                 <FontAwesome5 name='arrow-left' size={24} />
                             </TouchableOpacity>
-                            <Text style={{fontSize: 28}}> My Web Toon </Text>
+                            <Text style={{fontSize: 28}}> My WeH Toon </Text>
                         </View>
                     </View>
                     <View style={{flex: 1}}>

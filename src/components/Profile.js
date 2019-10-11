@@ -14,7 +14,7 @@ export default class Profile extends Component {
             userName : '',
             userNameEdited : '',
             countMount : 0,
-            url : 'https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'
+            url : 'https://maxcdn.icons8.com/Share/icon/Users//user_male_circle_filled1600.png'
         }
     }
 
@@ -41,7 +41,7 @@ export default class Profile extends Component {
             countMount : +1
         }) : this.setState({
             userName : '',
-            url : 'https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+            url : 'https://maxcdn.icons8.com/Share/icon/Users//user_male_circle_filled1600.png',
             countMount : +1
         }) :
         this.state.isLogin == true ?
@@ -51,7 +51,7 @@ export default class Profile extends Component {
             countMount : +1
         }) : this.setState({
             userName : '',
-            url : 'https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+            url : 'https://maxcdn.icons8.com/Share/icon/Users//user_male_circle_filled1600.png',
             countMount : +1
         }) :
         null
