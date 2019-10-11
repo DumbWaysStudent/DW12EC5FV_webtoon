@@ -78,14 +78,14 @@ $ react-native run-android #for android
 
 ## Support Me :)
 * Star this repository :star:
-* Hire Me https://www.linkedin.com/in/yusuf-b-a0479710b/
+* Hire Me https://www.linkedin.com/in/virginia-dewangga-19b034162/
 
 ## Contact 
 * WA/TELEGRAM: -
 * email: virginiadewangga@gmail.com
 
 ## Download App (Demo usage only)
-[![Iyat Download](https://i1.wp.com/apkmodsios.com/wp-content/uploads/2018/12/Download-Infinite-Design-3.4.10-Apk.png)](https://linktodownload.com/course-repo-example.apk)
+[![WeHToon Download](https://i1.wp.com/apkmodsios.com/wp-content/uploads/2018/12/Download-Infinite-Design-3.4.10-Apk.png)](https://linktodownload.com/course-repo-example.apk)
 
 
 ----
