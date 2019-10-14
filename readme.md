@@ -1,38 +1,39 @@
 ## A. Requirements
-- **GET SEMUA WEBTOON**
+- **GET SEMUA EPISODE WEBTOON TERTENTU**
 
+## Menambahkan route di index
 ```javascript
-exports.index = (req, res) => {
-    comics.findAll().then(comics => res.send(comics))   
-}   
+router.get('/wehtoons/:id/episodes', TodosController.episodes)
 ```
 
-<img src="https://github.com/DumbWaysStudent/DW12EC5FV_webtoon/blob/15.for_you_implementation/imageGit/getAll.PNG?raw=true" width="800" alt="get semua webtoon"/>
 
-- **GET SEMUA WEBTOON FAVORITE**
+## Menambahkan associate hasMany pada models comics.js
+
 ```javascript
-exports.favorite = (req, res) => {
-    comics.findAll({
-        where : {
-            isFavorite : true
-        }
-    }).then(comics => res.send(comics))
-}   
+comics.hasMany(models.comics_details, {
+      as : 'episodes',
+      foreignKey : 'comic'
+    })   
 ```
-
-<img src="https://raw.githubusercontent.com/DumbWaysStudent/DW12EC5FV_webtoon/15.for_you_implementation/imageGit/favorite.PNG" width="800" alt="get semua webtoon favorite"/>
-
-- **SEARCH SEMUA WEBTOON BERDASARKAN TITLE**
+## Menambahakan varabel episodes di controller
 
 ```javascript
-exports.search = (req, res) => {
-    const title = req.params.title
+exports.episodes = (req, res) => {
     comics.findAll({
+        include : [{
+            model : comicDetail,
+            as : "episodes"
+        }], 
         where : {
-            title : `${title}`
+            id : req.params.id
         }
-    }).then(comics => res.send(comics))
+    }).then(comics =>{res.send(comics[0]["episodes"])}).catch(errror => {
+        console.log(errror)
+    })
 }
 ```
 
-<img src="https://github.com/DumbWaysStudent/DW12EC5FV_webtoon/blob/15.for_you_implementation/imageGit/search.PNG?raw=true" width="800" alt="get semua webtoon berdasarkan title"/>
+## Pengetestan
+1. Untuk isi database terdiri dari 4 comic
+
+2. Memasukan parameter sesuai Requirements dan melihat hasilnya
