@@ -2,6 +2,8 @@
 #
 .DS_Store
 
+/express-weh-toon/node_modules
+
 # Xcode
 #
 build/
