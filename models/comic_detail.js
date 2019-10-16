@@ -7,10 +7,14 @@ module.exports = (sequelize, DataTypes) => {
     chapter_id: DataTypes.INTEGER
   }, {});
   comic_detail.associate = function(models) {
+
+    // Digunakan untuk melihat pages sesuai chapter
     comic_detail.hasMany(models.episodes, {
       as : "Episodes Image",
       foreignKey : "title_id"
     })
+
+    
   };
   return comic_detail;
 };

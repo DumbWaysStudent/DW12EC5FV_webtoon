@@ -28,6 +28,9 @@ app.group('/api/v1', (router) => {
 
     // Get episodes image pages
     router.get('/wehtoons/:comicId/episode/:chapterId', ToonController.episodesDetails)
+
+    // Get favorite comic by user dan user perlu melakukan login
+    router.get('/wehtoons/favorite', auth, ToonController.myFavorite)
 })
 
 app.listen(port, () => console.log(`listen to port ${port}`))

@@ -13,9 +13,18 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'createdBy'
     })
 
+    // Digunakna untuk melihat chapter dari comic
     comics.hasMany(models.comic_detail, {
       as : 'episodes',
       foreignKey : 'comic'
+    })
+
+    // Digunakan untuk melihat siapa saja user yang memfavoritekan comic
+    comics.belongsToMany(models.users, {
+      through : "myfavorites",
+      as : "User Favorite",
+      foreignKey : "comic_id"
+
     })
   };
   return comics;

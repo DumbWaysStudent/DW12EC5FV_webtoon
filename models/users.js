@@ -7,6 +7,13 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   users.associate = function(models) {
     // associations can be defined here
+
+    // Untuk melihat comic yang di favoritekan user
+    users.belongsToMany(models.comics, {
+      through : "myfavorites",
+      as : "My Favorite",
+      foreignKey : "user_id"
+    })
   };
   return users;
 };

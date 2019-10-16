@@ -5,7 +5,7 @@ const comicDetail = models.comic_detail
 const episodes = models.episodes
 
 const Sequalize= require('sequelize')
-const op = Sequalize.Op
+const Op = Sequalize.Op
 
 exports.index = (req, res) => {
     comics.findAll({
@@ -30,6 +30,8 @@ exports.episodes = (req, res) => {
     }).then(body => {res.send(body[0]['episodes'])}).catch(err => {console.log(err)})
 }
 
+
+// menampilkan pages berdasarkan chapter dari comic yang kita pilih
 exports.episodesDetails = (req, res) => {
     comicDetail.findAll({
         include : [{
@@ -41,4 +43,19 @@ exports.episodesDetails = (req, res) => {
             chapter_id : req.params.chapterId
         }
     }).then(ep => res.send(ep[0]["Episodes Image"])).catch(err => console.log(err))
+}
+
+// menampilkan comic favorite berdasarkan user
+exports.myFavorite = (req, res) => {
+    user.findAll({
+        include : [{
+            model : comics,
+            as : "My Favorite"
+        }],
+        where : {
+            name : {
+                [Op.like] : `%${req.query.user}%`
+            }
+        }
+    }).then(fav => res.send(fav[0]["My Favorite"])).catch(err => console.log(err))
 }
