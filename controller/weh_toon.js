@@ -97,7 +97,7 @@ exports.storeComic = (req, res) => {
     })
 }
 
-// Update my webtoon creation
+// Update chapter
 exports.updateChapter = (req, res) => {
 
     comics.update(req.body, {where: {id: req.params.comicId}})
@@ -123,18 +123,32 @@ exports.deleteComic = (req, res) => {
         })
     }
 
-// CREATE MY EPISODE IMPLEMENTATION
-
-// Membuat episode baru
-exports.storeEpisode = (req, res) => {
-    const {episodes_img, pages} = req.body
-    episodes.create({
-        title_id : req.params.comicId, episodes_img, pages
+// Membuat chapter baru
+exports.storeChapter = (req, res) => {
+    const {title_episodes, imgurl_episodes, chapter_id} = req.body
+    comicDetail.create({
+        title_episodes, imgurl_episodes, chapter_id, comic : req.params.comicId
     })
     .then(()=> {
         res.send({
             message: "success",
         })
+    })
+}
+
+// Melihat chapter berdasarkan comic
+exports.getChapter = (req, res) => {
+    comics.findAll({
+        include : [{
+            model : comicDetail,
+            as : 'episodes',
+        }],
+        where : {
+            id : req.params.comicId
+        }
+    })
+    .then(chapter => {
+        res.send(chapter[0]["episodes"])
     })
 }
 
@@ -152,9 +166,33 @@ exports.getEpisodes = (req, res) => {
     }).then(ep => res.send(ep[0]["Episodes Image"])).catch(err => console.log(err))
 }
 
+// Membuat pages baru baru
+exports.storePages = (req, res) => {
+    const {episodes_img, pages} = req.body
+    episodes.create({
+        title_id : req.params.comicId, episodes_img, pages
+    })
+    .then(()=> {
+        res.send({
+            message: "success",
+        })
+    })
+}
+
 // UPDATE / DETAIL comic -> chapter
 
+// Update Chapter
+exports.updateEpisode = (req, res) => {
 
+    comicDetail.update(req.body, {where: {comic: req.params.comicId, chapter_id : req.params.episode_id}})
+        .then(()=> {
+            comicDetail.findOne({
+                where : {
+                    id : req.params.comicId
+                }
+            }).then(comic => res.send(comic))
+    }).catch(err => console.log(err))
+}
 
 
 // membuat Pages untuk chapter  comic -> chapter -> pages
