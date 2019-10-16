@@ -179,21 +179,7 @@ exports.deleteChapter = (req, res) => {
         })
     }
 
-// Melihat semua pages yang sudah di buat berdasarkan comic
-exports.getPages = (req, res) => {
-    comicDetail.findAll({
-        include : [{
-            model : episodes,
-            as : "Episodes Image"
-        }],
-        where : {
-            comic : req.params.comicId,
-            chapter_id : req.params.episode_id
-        }
-    }).then(ep => res.send(ep[0]["Episodes Image"])).catch(err => console.log(err))
-}
-
-// Membuat pages baru baru
+// Membuat pages baru baru untuk chapter tertentu
 exports.storePages = (req, res) => {
     const {episodes_img, pages} = req.body
     episodes.create({
@@ -206,27 +192,15 @@ exports.storePages = (req, res) => {
     })
 }
 
-// UPDATE / DETAIL comic -> chapter
-
-
-// membuat Pages untuk chapter  comic -> chapter -> pages
-
-// Create image
-exports.storePages = (req, res) => {
-
-    episodes.create(req.body)
-        .then(comic => res.send(comic))
-        .catch(err => console.log(err))
+// Melihat semua pages yang sudah di buat berdasarkan chapter
+exports.getPages = (req, res) => {
+    comicDetail.findAll({
+        include : [{
+            model : episodes
+        }],
+        where : {
+            comic : req.params.comicId,
+            chapter_id : req.params.episode_id
+        }
+    }).then(ep => res.send(ep[0]["episodes"])).catch(err => console.log(err))
 }
-
-// exports.updatePages = (req, res) => {
-
-//     episodes.update(req.body, {where: {title_id: req.params.wehtoon_id}})
-//         .then(()=> {
-//             comics.findOne({
-//                 where : {
-//                     id : req.params.comic_id
-//                 }
-//             }).then(comic => res.send(comic))
-//     }).catch(err => console.log(err))
-// }

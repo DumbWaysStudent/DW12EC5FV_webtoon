@@ -10,7 +10,6 @@ module.exports = (sequelize, DataTypes) => {
 
     // Digunakan untuk melihat pages sesuai chapter
     comic_detail.hasMany(models.episodes, {
-      as : "Episodes Image",
       foreignKey : "title_id"
     })
 
