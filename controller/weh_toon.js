@@ -85,3 +85,13 @@ exports.searchTitle = (req, res) => {
         }
     }).then(search => res.send(search)).catch(err => console.log(err))
 }
+
+// Membuat comic baru
+exports.storeComic = (req, res) => {
+    comics.create(req.body).then(comics=> {
+        res.send({
+            message: "success",
+            comics
+        })
+    })
+}
