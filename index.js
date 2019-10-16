@@ -42,7 +42,7 @@ app.group('/api/v1', (router) => {
     router.post('/user/user_id/wehtoon', auth, ToonController.storeComic)
 
     // Edit comic
-    router.put('/user/:user_id/webtoon/:comic_id', auth, ToonController.updateChapter)
+    router.put('/user/:user_id/webtoon/:comicId', auth, ToonController.updateComic)
 
     // Delete comic
     router.delete('/user/:user_id/wehtoon/:comicId', ToonController.deleteComic)
@@ -56,11 +56,14 @@ app.group('/api/v1', (router) => {
     // Update chapter
     router.put('/user/:user_id/wehtoon/:comicId/episode/:episode_id', ToonController.updateChapter)
 
+    // Delete chapter
+    router.delete('/user/:user_id/wehtoon/:comicId/episode/:episode_id', ToonController.deleteChapter)
+
     // Create Pages yang sudah di buat -> di bawah sini 27
     router.post('/user/:user_id/wehtoon/:comicId/episode', ToonController.storePages)
 
     // GET semua pages setelah di buat berdasarkan chapternya
-    router.get('/user/:user_id/wehtoon/:comicId/episode/:episode_id/image', ToonController.getEpisodes)
+    router.get('/user/:user_id/wehtoon/:comicId/episode/:episode_id/image', ToonController.getPages)
 
     // Menambahkan Pages untuk chapter yang sudah di buat
     router.post('/user/:user_id/webtoon/:comicId/episode/:episode_id', ToonController.storePages)

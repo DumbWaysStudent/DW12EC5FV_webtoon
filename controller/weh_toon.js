@@ -98,7 +98,7 @@ exports.storeComic = (req, res) => {
 }
 
 // Update chapter
-exports.updateChapter = (req, res) => {
+exports.updateComic = (req, res) => {
 
     comics.update(req.body, {where: {id: req.params.comicId}})
         .then(()=> {
@@ -166,8 +166,21 @@ exports.updateChapter = (req, res) => {
     }).catch(err => console.log(err))
 }
 
-// Melihat semua episode yang sudah di buat berdasarkan comic
-exports.getEpisodes = (req, res) => {
+// Delete Chapter
+exports.deleteChapter = (req, res) => {
+    comicDetail.destroy({
+        where: {
+            comic: req.params.comicId,
+            chapter_id : req.params.episode_id}})
+            .then((comic)=> {res.send({
+                message: "success",
+                comic
+            })
+        })
+    }
+
+// Melihat semua pages yang sudah di buat berdasarkan comic
+exports.getPages = (req, res) => {
     comicDetail.findAll({
         include : [{
             model : episodes,
