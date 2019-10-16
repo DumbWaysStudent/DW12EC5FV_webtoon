@@ -1,26 +1,25 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('comic_details', {
+    return queryInterface.createTable('episodes', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      title_episodes: {
-        type: Sequelize.STRING
-      },
-      imgurl_episodes: {
-        type: Sequelize.STRING
-      },
-      comic: {
+      title_id: {
         type: Sequelize.INTEGER,
-        allowNull : false,
-        references :{
-          model : 'comics',
-          key : 'id'
-        }
+        allowNull: false,
+        references: {
+            model: 'comic_details',
+            key: 'id'
+        },
+        onUpdate: 'cascade',
+        onDelete: 'cascade'
+      },
+      episodes_img: {
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
@@ -33,6 +32,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('comic_details');
+    return queryInterface.dropTable('episodes');
   }
 };
