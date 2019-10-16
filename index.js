@@ -22,6 +22,9 @@ app.group('/api/v1', (router) => {
 
     // Get Comic dan created by
     router.get('/wehtoons', ToonController.index)
+
+    // Get comic episodes by comic id
+    router.get('/wehtoons/:comicId/episodes', ToonController.episodes)
 })
 
 app.listen(port, () => console.log(`listen to port ${port}`))
