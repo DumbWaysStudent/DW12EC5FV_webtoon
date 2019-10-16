@@ -21,6 +21,9 @@ module.exports = {
       episodes_img: {
         type: Sequelize.STRING
       },
+      pages: {
+        type: Sequelize.INTEGER
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

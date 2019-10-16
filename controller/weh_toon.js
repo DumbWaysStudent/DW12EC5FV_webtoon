@@ -100,11 +100,11 @@ exports.storeComic = (req, res) => {
 // Update my webtoon creation
 exports.updateChapter = (req, res) => {
 
-    comics.update(req.body, {where: {id: req.params.comic_id}})
+    comics.update(req.body, {where: {id: req.params.comicId}})
         .then(()=> {
             comics.findOne({
                 where : {
-                    id : req.params.comic_id
+                    id : req.params.comicId
                 }
             }).then(comic => res.send(comic))
     }).catch(err => console.log(err))
@@ -115,7 +115,7 @@ exports.deleteComic = (req, res) => {
     comics.destroy({
         where: {
             createdBy : req.params.user_id,
-            id : req.params.comic_id}})
+            id : req.params.comicId}})
             .then((comic)=> {res.send({
                 message: "success",
                 comic
@@ -127,9 +127,9 @@ exports.deleteComic = (req, res) => {
 
 // Membuat episode baru
 exports.storeEpisode = (req, res) => {
-    const {episodes_img} = req.body
+    const {episodes_img, pages} = req.body
     episodes.create({
-        title_id : req.params.comic_id, episodes_img
+        title_id : req.params.comicId, episodes_img, pages
     })
     .then(()=> {
         res.send({
@@ -138,7 +138,7 @@ exports.storeEpisode = (req, res) => {
     })
 }
 
-// Melihat semua episode yang sudah di buat berdasarkan chapter
+// Melihat semua episode yang sudah di buat berdasarkan comic
 exports.getEpisodes = (req, res) => {
     comicDetail.findAll({
         include : [{
@@ -146,9 +146,35 @@ exports.getEpisodes = (req, res) => {
             as : "Episodes Image"
         }],
         where : {
-            comic : req.params.wehtoon_id,
+            comic : req.params.comicId,
             chapter_id : req.params.episode_id
         }
     }).then(ep => res.send(ep[0]["Episodes Image"])).catch(err => console.log(err))
 }
 
+// UPDATE / DETAIL comic -> chapter
+
+
+
+
+// membuat Pages untuk chapter  comic -> chapter -> pages
+
+// Create image
+exports.storePages = (req, res) => {
+
+    episodes.create(req.body)
+        .then(comic => res.send(comic))
+        .catch(err => console.log(err))
+}
+
+// exports.updatePages = (req, res) => {
+
+//     episodes.update(req.body, {where: {title_id: req.params.wehtoon_id}})
+//         .then(()=> {
+//             comics.findOne({
+//                 where : {
+//                     id : req.params.comic_id
+//                 }
+//             }).then(comic => res.send(comic))
+//     }).catch(err => console.log(err))
+// }

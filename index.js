@@ -45,13 +45,17 @@ app.group('/api/v1', (router) => {
     router.put('/user/:user_id/webtoon/:comic_id', auth, ToonController.updateChapter)
 
     // Delete comic
-    router.delete('/user/:user_id/wehtoon/:comic_id', ToonController.deleteComic)
+    router.delete('/user/:user_id/wehtoon/:comicId', ToonController.deleteComic)
 
     // Create Episodes
-    router.post('/user/:user_id/wehtoon/:comic_id/episode', ToonController.storeEpisode)
+    router.post('/user/:user_id/wehtoon/:comicId/episode', ToonController.storeEpisode)
 
     // GET semua Episodes setelah di buat
-    router.get('/user/:user_id/wehtoon/:wehtoon_id/episode/:episode_id/images', ToonController.getEpisodes)
+    router.get('/user/:user_id/wehtoon/:comicId/episode/:episode_id/images', ToonController.getEpisodes)
+
+    // Menambahkan Pages untuk chapter yagn sudah di buat 27
+    router.post('/user/:user_id/webtoon/:comicId/episode/:episode_id', ToonController.storePages)
+
 })
 
 app.listen(port, () => console.log(`listen to port ${port}`))
