@@ -7,12 +7,27 @@ const episodes = models.episodes
 const Sequalize= require('sequelize')
 const Op = Sequalize.Op
 
+// Menampilkan Semua comic dan pengarangnya
 exports.index = (req, res) => {
     comics.findAll({
         include: [{
             model: user  
         }]
     }).then(comics =>{ res.send(comics)}).catch(errror => {
+        console.log(errror)
+    })
+}
+
+// Menampilkan pengarang dan comic yang dibuatnya
+exports.creator = (req, res) => {
+    user.findAll({
+        include: [{
+            model: comics
+        }],
+        where : {
+            name : req.params.userName
+        }
+    }).then(creator =>{ res.send(creator[0]["comics"])}).catch(errror => {
         console.log(errror)
     })
 }

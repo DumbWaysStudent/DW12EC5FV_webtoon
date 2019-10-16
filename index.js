@@ -34,6 +34,9 @@ app.group('/api/v1', (router) => {
 
     // Get comic by title search
     router.get('/wehtoons/search', ToonController.searchTitle)
+
+    // Get MyCreation
+    router.get('/user/:userName/wehtoons', auth, ToonController.creator)
 })
 
 app.listen(port, () => console.log(`listen to port ${port}`))

@@ -9,7 +9,6 @@ module.exports = (sequelize, DataTypes) => {
   comics.associate = function(models) {
     // Digunakan untuk melihat siapa yg membuat comic
     comics.belongsTo(models.users, {
-      
       foreignKey: 'createdBy'
     })
 
