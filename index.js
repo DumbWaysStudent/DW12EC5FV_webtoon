@@ -39,7 +39,10 @@ app.group('/api/v1', (router) => {
     router.get('/user/:userName/wehtoons', auth, ToonController.creator)
 
     // Create Comic
-    router.post('/user/user_id/webtoon', ToonController.storeComic)
+    router.post('/user/user_id/wehtoon', auth, ToonController.storeComic)
+
+    // Edit comic
+    router.put('/user/:user_id/webtoon/:comic_id', auth, ToonController.updateChapter)
 })
 
 app.listen(port, () => console.log(`listen to port ${port}`))

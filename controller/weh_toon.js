@@ -88,10 +88,24 @@ exports.searchTitle = (req, res) => {
 
 // Membuat comic baru
 exports.storeComic = (req, res) => {
-    comics.create(req.body).then(comics=> {
+    console.log(req.body)
+    comics.create(req.body)
+    .then(()=> {
         res.send({
             message: "success",
-            comics
         })
     })
+}
+
+// Update my webtoon creation
+exports.updateChapter = (req, res) => {
+
+    comics.update(req.body, {where: {id: req.params.comic_id}})
+        .then(()=> {
+            comics.findOne({
+                where : {
+                    id : req.params.comic_id
+                }
+            }).then(comic => res.send(comic))
+    }).catch(err => console.log(err))
 }
