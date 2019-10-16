@@ -43,6 +43,9 @@ app.group('/api/v1', (router) => {
 
     // Edit comic
     router.put('/user/:user_id/webtoon/:comic_id', auth, ToonController.updateChapter)
+
+    // Delete comic
+    router.delete('/user/:user_id/wehtoon/:comic_id', ToonController.deleteComic)
 })
 
 app.listen(port, () => console.log(`listen to port ${port}`))

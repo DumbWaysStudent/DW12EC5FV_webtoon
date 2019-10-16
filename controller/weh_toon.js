@@ -109,3 +109,17 @@ exports.updateChapter = (req, res) => {
             }).then(comic => res.send(comic))
     }).catch(err => console.log(err))
 }
+
+// Delete comic
+exports.deleteComic = (req, res) => {
+    comics.destroy({
+        where: {
+            createdBy : req.params.user_id,
+            id : req.params.comic_id}})
+            .then((comic)=> {res.send({
+                message: "success",
+                comic
+            })
+        })
+    }
+
