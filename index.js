@@ -17,6 +17,7 @@ app.group('/api/v1', (router) => {
 
     // Api Authentication
     router.post('/login', AuthController.login)
+    router.post('/register', AuthController.register)
 })
 
 app.listen(port, () => console.log(`listen to port ${port}`))

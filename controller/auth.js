@@ -29,3 +29,30 @@ exports.login = (req, res) => {
         }
     }).catch(error => console.log(error))
 }
+
+exports.register = (req, res) => {
+
+    const name = req.body.name
+    const password = req.body.password
+
+    user.create(req.body).then(() => {
+        user.findOne({
+            where : {
+                name, password
+            }
+        }).then(user => {
+            if(user){
+            const token = jwt.sign({userId : user.id}, 'rahasia')
+            res.send({
+                username : user.name, 
+                token
+            })
+        } else {
+            res.send({
+                error : true,
+                message : 'Wrong Email Password'
+            })
+        }
+    })
+    }).catch(error => console.log(error))
+}
