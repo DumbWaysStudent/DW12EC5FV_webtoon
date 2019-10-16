@@ -53,8 +53,8 @@ app.group('/api/v1', (router) => {
     // Get semua chapter berdasarkan comic
     router.get('/user/:user_id/wehtoon/:comicId/episode', ToonController.getChapter)
 
-    // Update Episodes
-    router.put('/user/:user_id/webtoon/:comicId/episode/:episode_id', ToonController.updateEpisode)
+    // Update chapter
+    router.put('/user/:user_id/wehtoon/:comicId/episode/:episode_id', ToonController.updateChapter)
 
     // Create Pages yang sudah di buat -> di bawah sini 27
     router.post('/user/:user_id/wehtoon/:comicId/episode', ToonController.storePages)

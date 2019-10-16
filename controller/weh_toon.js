@@ -152,6 +152,20 @@ exports.getChapter = (req, res) => {
     })
 }
 
+// Update Chapter
+exports.updateChapter = (req, res) => {
+
+    comicDetail.update(req.body, {where: {comic: req.params.comicId, chapter_id : req.params.episode_id}})
+        .then(()=> {
+            comicDetail.findOne({
+                where : {
+                    comic : req.params.comicId,
+                    chapter_id : req.params.episode_id
+                }
+            }).then(comic => res.send(comic))
+    }).catch(err => console.log(err))
+}
+
 // Melihat semua episode yang sudah di buat berdasarkan comic
 exports.getEpisodes = (req, res) => {
     comicDetail.findAll({
@@ -180,19 +194,6 @@ exports.storePages = (req, res) => {
 }
 
 // UPDATE / DETAIL comic -> chapter
-
-// Update Chapter
-exports.updateEpisode = (req, res) => {
-
-    comicDetail.update(req.body, {where: {comic: req.params.comicId, chapter_id : req.params.episode_id}})
-        .then(()=> {
-            comicDetail.findOne({
-                where : {
-                    id : req.params.comicId
-                }
-            }).then(comic => res.send(comic))
-    }).catch(err => console.log(err))
-}
 
 
 // membuat Pages untuk chapter  comic -> chapter -> pages
