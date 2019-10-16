@@ -88,7 +88,7 @@ exports.searchTitle = (req, res) => {
 
 // Membuat comic baru
 exports.storeComic = (req, res) => {
-    console.log(req.body)
+    
     comics.create(req.body)
     .then(()=> {
         res.send({
@@ -122,4 +122,33 @@ exports.deleteComic = (req, res) => {
             })
         })
     }
+
+// CREATE MY EPISODE IMPLEMENTATION
+
+// Membuat episode baru
+exports.storeEpisode = (req, res) => {
+    const {episodes_img} = req.body
+    episodes.create({
+        title_id : req.params.comic_id, episodes_img
+    })
+    .then(()=> {
+        res.send({
+            message: "success",
+        })
+    })
+}
+
+// Melihat semua episode yang sudah di buat berdasarkan chapter
+exports.getEpisodes = (req, res) => {
+    comicDetail.findAll({
+        include : [{
+            model : episodes,
+            as : "Episodes Image"
+        }],
+        where : {
+            comic : req.params.wehtoon_id,
+            chapter_id : req.params.episode_id
+        }
+    }).then(ep => res.send(ep[0]["Episodes Image"])).catch(err => console.log(err))
+}
 

@@ -46,6 +46,12 @@ app.group('/api/v1', (router) => {
 
     // Delete comic
     router.delete('/user/:user_id/wehtoon/:comic_id', ToonController.deleteComic)
+
+    // Create Episodes
+    router.post('/user/:user_id/wehtoon/:comic_id/episode', ToonController.storeEpisode)
+
+    // GET semua Episodes setelah di buat
+    router.get('/user/:user_id/wehtoon/:wehtoon_id/episode/:episode_id/images', ToonController.getEpisodes)
 })
 
 app.listen(port, () => console.log(`listen to port ${port}`))
