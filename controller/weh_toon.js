@@ -59,3 +59,14 @@ exports.myFavorite = (req, res) => {
         }
     }).then(fav => res.send(fav[0]["My Favorite"])).catch(err => console.log(err))
 }
+
+// Menampilkan hasil search berdasarkan title
+exports.searchTitle = (req, res) => {
+    comics.findAll({
+        where : {
+            title : {
+                [Op.like] : `%${req.query.title}%`
+            }
+        }
+    }).then(search => res.send(search)).catch(err => console.log(err))
+}

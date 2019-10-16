@@ -31,6 +31,9 @@ app.group('/api/v1', (router) => {
 
     // Get favorite comic by user dan user perlu melakukan login
     router.get('/wehtoons/favorite', auth, ToonController.myFavorite)
+
+    // Get comic by title search
+    router.get('/wehtoons/search', ToonController.searchTitle)
 })
 
 app.listen(port, () => console.log(`listen to port ${port}`))
