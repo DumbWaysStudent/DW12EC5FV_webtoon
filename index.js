@@ -8,6 +8,7 @@ const bodyParser = require('body-parser')
 app.use(bodyParser.json())
 const { auth } = require('./middleware')
 const AuthController = require('./controller/auth')
+const ToonController = require('./controller/weh_toon')
 
 
 app.group('/api/v1', (router) => {
@@ -18,6 +19,9 @@ app.group('/api/v1', (router) => {
     // Api Authentication
     router.post('/login', AuthController.login)
     router.post('/register', AuthController.register)
+
+    // Get Comic dan created by
+    router.get('/wehtoons', ToonController.index)
 })
 
 app.listen(port, () => console.log(`listen to port ${port}`))
