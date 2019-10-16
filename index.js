@@ -65,6 +65,9 @@ app.group('/api/v1', (router) => {
     // GET semua pages setelah di buat berdasarkan chapternya
     router.get('/user/:user_id/wehtoon/:comicId/episode/:episode_id/images', ToonController.getPages)
 
+    // Delete Pages
+    router.delete('/user/:user_id/wehtoon/:comicId/episode/:episode_id/image/:image_id', ToonController.deletePages)
+
 })
 
 app.listen(port, () => console.log(`listen to port ${port}`))

@@ -204,3 +204,19 @@ exports.getPages = (req, res) => {
         }
     }).then(ep => res.send(ep[0]["episodes"])).catch(err => console.log(err))
 }
+
+// Delete Pages dari suatu chapter
+exports.deletePages = (req, res) => {
+    episodes.destroy({
+        where : {
+            title_id : req.params.episode_id,
+            pages : req.params.image_id
+        }
+    })
+    .then(comic => {
+        res.send({
+            message : "success",
+            comic
+        })
+    })
+}
