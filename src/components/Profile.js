@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { Text, View, TextInput, Dimensions, TouchableOpacity, Image } from 'react-native';
+import { Text, View, TextInput, Dimensions, TouchableOpacity, Image, Button } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import axios from 'axios'
+import AsyncStorage from '@react-native-community/async-storage'
 
 export default class Profile extends Component {
 
@@ -10,7 +12,8 @@ export default class Profile extends Component {
         this.state = {
             height,
             width,
-            isLogin : false,
+            token : '',
+            userId : '',
             userName : '',
             userNameEdited : '',
             countMount : 0,
@@ -18,51 +21,38 @@ export default class Profile extends Component {
         }
     }
 
-    componentWillMount(){
+    async setItem(){
+        this.setState({
+            token : await AsyncStorage.getItem('userToken'),
+            userName : await AsyncStorage.getItem('userName'),
+            userId : await AsyncStorage.getItem('userId')
+        })
         
-        this.props.navigation.dangerouslyGetParent().getParam('isLogin') == true ?
-            this.setState({
-                isLogin : true,
-                userName : this.props.navigation.dangerouslyGetParent().getParam('userName')
-            }) :
-            this.setState({
-                isLogin : false,
-                userName : '',
-            })
+    }
+    
+    componentDidMount(){
+        this.setItem()
     }
 
-    componentDidUpdate(){
-        this.state.countMount < 1 ?
-        this.props.navigation.getParam('isEdited') == true ?
-        this.state.isLogin == true ?
-        this.setState({
-            userName : this.props.navigation.getParam('userNameEdited'),
-            url : this.props.navigation.getParam('url'),
-            countMount : +1
-        }) : this.setState({
-            userName : '',
-            url : 'https://maxcdn.icons8.com/Share/icon/Users//user_male_circle_filled1600.png',
-            countMount : +1
-        }) :
-        this.state.isLogin == true ?
-        this.setState({
-            userName : this.props.navigation.dangerouslyGetParent().getParam('userName'),
-            url : this.props.navigation.getParam('url'),
-            countMount : +1
-        }) : this.setState({
-            userName : '',
-            url : 'https://maxcdn.icons8.com/Share/icon/Users//user_male_circle_filled1600.png',
-            countMount : +1
-        }) :
-        null
-        console.log('component did update', this.props.navigation.getParam('userNameEdited'))
+    handleLogOutBtn = async() => {
 
+        try {
+
+            if(AsyncStorage.getItem('userName') != '') {
+                await AsyncStorage.removeItem('userToken')
+                await AsyncStorage.removeItem('userName')
+                // await AsyncStorage.removeItem('userId')
+                }
+            }
+            catch(error) {
+                console.log(error)
+            }
+        this.props.navigation.navigate('authStack')
     }
 
     render(){
       return (
         <View style={{width : this.state.width, height : this.state.height}}>
-            {console.log('render', this.state.userName)}
                 <View style={{flex : 1}}>
                     <View style={{flex: 1, marginBottom : 24}}>
                         <View style={{borderWidth : 2, borderColor : '#D0D0D0', flexDirection : "row", alignItems : "center", justifyContent : 'space-between', height : 60}}  >
@@ -90,13 +80,13 @@ export default class Profile extends Component {
                             </View>
                         </View>
                         <View>
-                            {this.state.isLogin == true ?
+                            {this.state.token != undefined ?
                             <View>
                             <TouchableOpacity style={{backgroundColor:'#e0dcdc', padding : 10, marginVertical : 5, marginHorizontal : 5}} onPress={() => this.props.navigation.navigate('CreationScreen')}>
                                 <Text style={{fontSize : 24, fontWeight : '600'}}>My WeHToon Creation</Text>
                             </TouchableOpacity>
                             {/* Login */}
-                            <TouchableOpacity style={{backgroundColor:'#e0dcdc', padding : 10, marginVertical : 5,  marginHorizontal : 5}} onPress={() => this.setState({isLogin : false, userName : ''})}>
+                            <TouchableOpacity style={{backgroundColor:'#e0dcdc', padding : 10, marginVertical : 5,  marginHorizontal : 5}} onPress={() => this.handleLogOutBtn()}>
                                 <Text style={{fontSize : 24, fontWeight : '600'}}>Log Out</Text>
                             </TouchableOpacity>
                             </View> :
@@ -123,6 +113,7 @@ export default class Profile extends Component {
                         </TouchableOpacity>
                     </View>
                 </View>
+                
             </View>
       )
     }

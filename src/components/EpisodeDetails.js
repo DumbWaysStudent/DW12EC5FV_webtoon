@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, Image, Dimensions, TouchableOpacity, ScrollView, FlatList } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Modal from "react-native-modal";
+import axios from "axios"
 
 export default class EpisodeDetails extends Component {
 
@@ -11,9 +12,22 @@ export default class EpisodeDetails extends Component {
         this.state = {
             height,
             width,
-            isModalVisible : false
+            isModalVisible : false,
+            pages : []
         }
     }
+
+    async fatchData(){
+        await axios.get('http://192.168.1.12:5000/api/v1/wehtoons/' + this.props.navigation.getParam('comicId') + '/episode/' + this.props.navigation.getParam('chapterId'))
+            .then(res => {
+                const pages = res.data;
+                this.setState({ pages });
+            });
+    }
+
+    componentDidMount(){
+        this.fatchData()
+       }
 
     render(){
         return (
@@ -48,19 +62,22 @@ export default class EpisodeDetails extends Component {
                         </View>
                     </View>
                 </View>
+
+                {/* Untuk melihat pages */}
                 <View style={{flex : 1}}>
                     <ScrollView>
                         <FlatList 
-                            data={this.props.navigation.getParam('episodDetails')}
+                            data={this.state.pages}
                             renderItem={({item}) => {
                                 return(
                                     <View>
-                                        <Image source={{uri : item.url}} style={{width : '100%', height : 1200}} />
+                                        <Image source={{uri : item.imgurl}} style={{width : '100%', height : 480}} />
                                     </View>
+                                    
                                 )
+                                
                             }}
                         />
-                        {console.log(this.props.navigation.getParam('episodDetails'))}
                     </ScrollView>
                 </View>
             </View>

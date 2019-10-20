@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, Image, Dimensions, TouchableOpacity, ScrollView, FlatList } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Modal from "react-native-modal";
+import axios from "axios"
 
 export default class Details extends Component {
 
@@ -11,8 +12,29 @@ export default class Details extends Component {
         this.state = {
             height,
             width,
-            isModalVisible : false
+            isModalVisible : false,
+            comicChapter : []
         }
+    }
+
+    async fatchData(){
+        await axios.get('http://192.168.1.12:5000/api/v1/wehtoons/' + this.props.navigation.getParam('comicId') + '/episodes')
+        .then(res => {
+            console.log('http://192.168.12.12:5000/api/v1/wehtoons/' + this.props.navigation.getParam('comicId') + '/episodes')
+            const comicChapter = res.data;
+            this.setState({ comicChapter });
+        })
+        .catch(err => console.log(err))
+        await console.log("hello" + this.state.comicChapter)
+    }
+
+    componentDidMount(){
+        console.log('http://192.168.12.12:5000/api/v1/wehtoons/' + this.props.navigation.getParam('comicId') + '/episodes')
+        this.fatchData()
+    }
+
+    handleChapterPages = (comicId, chapterId, title) => {
+        this.props.navigation.navigate('EpisodeDetails', {comicId, chapterId, title})
     }
 
     render(){
@@ -56,14 +78,16 @@ export default class Details extends Component {
                                 <Text style={{fontSize : 24}}>Klik Untuk Membaca</Text>
                                 {console.log(this.props.navigation.getParam('episode'))}
                             </View>
+
+                            {/* Untuk menampilkan chapter comic */}
                             <FlatList
-                                data={this.props.navigation.getParam('episode')}
+                                data={this.state.comicChapter}
                                 renderItem={({ item }) =>{
                                     return(
-                                    <TouchableOpacity style={{flexDirection : 'row', borderWidth : 0.5, borderStyle : 'solid', borderColor : '#ebebeb'}} onPress={() => this.props.navigation.navigate('EpisodeDetails', {episodDetails : item.episodDetails, title : item.title})} >
-                                        <Image source={{uri : item.url}} style={{width : 100, height : 100, borderRadius : 5}} />
+                                    <TouchableOpacity style={{flexDirection : 'row', borderWidth : 0.5, borderStyle : 'solid', borderColor : '#ebebeb'}} onPress={() => this.handleChapterPages(item.comic, item.chapterId, item.titleEpisodes)} >
+                                        <Image source={{uri : item.imgurl_episodes}} style={{width : 100, height : 100, borderRadius : 5}} />
                                         <View style={{justifyContent : 'center', paddingLeft : 15}}>
-                                            <Text style={{fontSize : 18}}>{ item.title }</Text>
+                                            <Text style={{fontSize : 18}}>{ item.titleEpisodes }</Text>
                                             <View style={{flexDirection : "row", }}>
                                                 <TouchableOpacity>
                                                     <FontAwesome5 name='heart' size={18} />

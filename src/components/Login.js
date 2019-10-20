@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Text, View, TextInput, TouchableOpacity, Image, Dimensions } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import axios from 'axios'
+import AsyncStorage from '@react-native-community/async-storage'
 
 class Login extends Component{
 
@@ -15,9 +17,9 @@ class Login extends Component{
             emailIcon : 'envelope',
             isSecure : true,
             isFormatCorrect : false,
-            userEmail : "yuhu@gmail.com",
-            userPass : '1',
-            userName : 'Dewangga',
+            userEmail : "",
+            password : '',
+            username : '',
             isLogin : false,
             height,
             width,
@@ -33,6 +35,30 @@ class Login extends Component{
         return reTest
     }
 
+
+    handleLoginBtn = async() => {
+
+        try {
+            const loginData = {
+                email : this.state.emailPlaceHolder,
+                password : this.state.passwordPlaceHolder
+            }
+            const user = await axios.post('http://192.168.1.12:5000/api/v1/login' , loginData)
+            if(user.data.username != null) {
+                await AsyncStorage.setItem('userToken', user.data.token.toString());
+                await AsyncStorage.setItem('userName', user.data.username.toString())
+                await AsyncStorage.setItem('userId', user.data.userid.toString())
+                this.props.navigation.navigate('profileStack')
+                } else {
+                    alert(user.data.message)
+                }
+                console.log(user.data)
+            }
+            catch(error) {
+                console.log(error)
+            }
+        toString
+    }
 
     render(){
             return (
@@ -62,11 +88,7 @@ class Login extends Component{
                                 
                                 {/* Login Button */}
                                 {this.testRegex() == true && this.state.passwordPlaceHolder != '' ?
-                                    this.state.userEmail == this.state.emailPlaceHolder && this.state.userPass == this.state.passwordPlaceHolder ? 
-                                    <TouchableOpacity onPress={() => this.props.navigation.navigate('appStack', {userName : this.state.userName, isLogin : true, favorite : this.props.navigation.dangerouslyGetParent().getParam('favorite'), comicList : this.props.navigation.dangerouslyGetParent().getParam('comicList')})} style={{backgroundColor: '#42f542', padding:15, width:'90%', alignItems : 'center', marginHorizontal : 15}}>
-                                        <Text style={{fontSize : 24}}>Login</Text> 
-                                    </TouchableOpacity> : 
-                                    <TouchableOpacity onPress={() => alert('Gagal Login')} style={{backgroundColor: '#42f542', padding:15, width:'90%', alignItems : 'center', marginHorizontal : 15}}>
+                                    <TouchableOpacity onPress={() => this.handleLoginBtn()} style={{backgroundColor: '#42f542', padding:15, width:'90%', alignItems : 'center', marginHorizontal : 15}}>
                                         <Text style={{fontSize : 24}}>Login</Text> 
                                     </TouchableOpacity>
                                     : 

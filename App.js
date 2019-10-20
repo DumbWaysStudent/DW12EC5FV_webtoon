@@ -14,6 +14,8 @@ import CreationScreenDetails from './src/components/CreationScreenDetails'
 import CreateEpisode from './src/components/CreateEpisode'
 import EditWebToon from './src/components/EditWebToon'
 import EditEpisode from './src/components/EditEpisode'
+import FatchData from './src/components/fatchData'
+import FatchDataL from './src/components/fatchDataL'
 
 // Option untuk handler Image dari image picker
 
@@ -69,16 +71,22 @@ const authStack = createStackNavigator({
   headerMode : 'none',
 })
 
+const fatchStack = createStackNavigator({
+  FatchData,
+  FatchDataL
+})
+
 const AppContainer = createAppContainer(
   createSwitchNavigator(
     {
       appStack,
       authStack,
       favStack,
-      profileStack
+      profileStack,
+      fatchStack
     },
     {
-      initialRouteName: 'appStack',
+      initialRouteName: 'authStack',
     }
   )
 );
