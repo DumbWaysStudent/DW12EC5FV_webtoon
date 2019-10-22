@@ -141,8 +141,6 @@ export default class ProfileEdit extends Component {
     render(){
         return (
             <View style={{width : this.state.width, height : this.state.height}}>
-                {console.log(this.state.userName)}
-                {console.log('render')}
                 <View style={{flex : 1}}>
                     <View style={{flex: 1, marginBottom : 24, borderWidth : 2, borderColor : '#D0D0D0', height : 60}}>
                         <View style={{flexDirection : "row", alignItems : "center", justifyContent : 'space-between', marginHorizontal : 20}}  >

@@ -129,19 +129,20 @@ export default class EditWebToon extends Component {
                         </View>
                     </View>
                     <Text style={{fontSize : 24, marginTop : 5, marginHorizontal : 10}}>Title</Text>
-                    <View style={{height : 50, borderColor : 'black', borderWidth : 1, width : '90%', alignSelf : "center", alignItems : "center", justifyContent : 'center'}}>
-                        <TextInput placeholder='Title' style={{width : '100%', height : 70, fontSize : 24}} />
-                    </View>
+                    
                     <View style={{flex: 1, marginBottom : 80}}>
                         <FlatList 
                             data={this.state.chapter}
                             renderItem={({item, index}) =>
                             <TouchableOpacity style={{flexDirection : 'row', marginVertical : 10, marginHorizontal : 10, alignItems : 'center', borderWidth : 0.5, borderColor : 'black'}} onPress={() => this.handleComicClick(item.id, item.chapterId)} >
                                 <Image source={{uri : item.imgurl}} style={{width : 100, height : 100, borderWidth : 1, borderColor : 'black'}}></Image>
-                                <View style={{marginHorizontal : 15}} >
-                                    <Text style={{fontSize : 18}}>{item.title}</Text>
+                                <View style={{marginLeft : 25, flexDirection : 'column', justifyContent : 'space-between'}} >
+                                    
                                     <Text style={{color : '#717171'}}>{item.titleEpisodes}</Text>
-                                    <TouchableOpacity style={{backgroundColor : '#eb302d', padding : 5, borderRadius :5, width : 100}} onPress={() => this.handleRemove(index)} >
+                                    <TouchableOpacity style={{backgroundColor : 'lime', padding : 5, borderRadius :2, width : 100, marginVertical : 2}} onPress={() => this.handleRemove(index)} >
+                                            <Text>Edit Chapter</Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity style={{backgroundColor : '#eb302d', padding : 5, borderRadius :2, width : 100}} onPress={() => this.handleRemove(index)} >
                                             <Text>Remove</Text>
                                     </TouchableOpacity>
                                 </View>

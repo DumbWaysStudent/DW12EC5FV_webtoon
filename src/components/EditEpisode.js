@@ -84,8 +84,7 @@ export default class EditEpisode extends Component {
             data
         }
         await Axios("http://192.168.1.12:5000/api/v1/user/2/wehtoon/" + this.props.navigation.getParam('chapterId') + "/episode/" + this.props.navigation.getParam('comicId') + "/image", config)
-        this.getMyPages()
-        
+        this.getMyPages() 
     }
 
     handleRemove = (index) => {
