@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { Text, View, Image, Dimensions, TouchableOpacity, ScrollView, FlatList } from 'react-native';
+import { Text, View, Image, Dimensions, TouchableOpacity, ScrollView, FlatList, Button } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import Axios from "axios"
+import AsyncStorage from '@react-native-community/async-storage'
 
 export default class CreationScreen extends Component {
 
@@ -11,40 +13,46 @@ export default class CreationScreen extends Component {
             height,
             width,
             isModalVisible : false,
-            myWebToon : [{
-                title : 'God Of HighSchool',
-                ep : 27,
-                url : 'https://swebtoon-phinf.pstatic.net/20180205_49/1517820810054nBc8X_JPEG/thumb_ipad.jpg'
-            }, {
-                title : 'Stranger From Hell',
-                ep : 19,
-                url : 'https://swebtoon-phinf.pstatic.net/20190830_275/1567155943013P5ABB_JPEG/_ipad.jpg'
-            }, {
-                title : 'Save Me',
-                ep : 8,
-                url : 'https://swebtoon-phinf.pstatic.net/20190116_292/1547605944791X4yhV_JPEG/10_EC8DB8EB84A4EC9DBC_ipad.jpg'
-            }, {
-                title : 'UnOrdinary',
-                ep : 13,
-                url : 'https://swebtoon-phinf.pstatic.net/20190111_246/1547145672832qC9wR_JPEG/10_EC8DB8EB84A4EC9DBC_ipad.jpg'
-            }, {
-                title : 'God Of HighSchool',
-                ep : 27,
-                url : 'https://swebtoon-phinf.pstatic.net/20180205_49/1517820810054nBc8X_JPEG/thumb_ipad.jpg'
-            }, {
-                title : 'Stranger From Hell',
-                ep : 19,
-                url : 'https://swebtoon-phinf.pstatic.net/20190830_275/1567155943013P5ABB_JPEG/_ipad.jpg'
-            }, {
-                title : 'Save Me',
-                ep : 8,
-                url : 'https://swebtoon-phinf.pstatic.net/20190116_292/1547605944791X4yhV_JPEG/10_EC8DB8EB84A4EC9DBC_ipad.jpg'
-            }, {
-                title : 'UnOrdinary',
-                ep : 13,
-                url : 'https://swebtoon-phinf.pstatic.net/20190111_246/1547145672832qC9wR_JPEG/10_EC8DB8EB84A4EC9DBC_ipad.jpg'
-            }]
+            myWebToon : [],
+            token : '',
+            userName : '',
+            userId : ''
         }
+    }
+
+
+    async setItem(){
+        this.setState({
+            token : await AsyncStorage.getItem('userToken'),
+            userName : await AsyncStorage.getItem('userName'),
+            userId : await AsyncStorage.getItem('userId'),
+            // userToken : await "Bearer " + this.state.token
+        } )
+    }
+
+    componentDidMount(){
+        this.getMyCreation()
+    }
+
+    getMyCreation = async () => {
+        await this.setItem()
+        await console.log(this.state.userName)
+        const config = {
+            method : 'get',
+            headers: {
+                // "Accept": "application/json",
+                "Content-type": "application/json",
+                "Authorization": "Bearer " + this.state.token
+            }
+        }
+        const getComic = await Axios('http://192.168.1.12:5000/api/v1/user/'+this.state.userName +'/wehtoons', config)
+        await this.setState({
+            myWebToon : getComic.data
+        })
+    }
+
+    editWehToonHandler = async (id) => {
+        this.props.navigation.navigate('EditWebToon', {comicId : id})
     }
 
     render(){
@@ -63,8 +71,8 @@ export default class CreationScreen extends Component {
                         <FlatList 
                             data={this.state.myWebToon}
                             renderItem={({item}) =>
-                            <TouchableOpacity style={{flexDirection : 'row', marginVertical : 10, marginHorizontal : 10, alignItems : 'center', borderWidth : 0.5, borderColor : 'black'}}>
-                                <Image source={{uri : item.url}} style={{width : 100, height : 100, borderWidth : 1, borderColor : 'black'}}></Image>
+                            <TouchableOpacity style={{flexDirection : 'row', marginVertical : 10, marginHorizontal : 10, alignItems : 'center', borderWidth : 0.5, borderColor : 'black'}} onPress={() => this.editWehToonHandler(item.id)} >
+                                <Image source={{uri : item.imgurl}} style={{width : 100, height : 100, borderWidth : 1, borderColor : 'black'}}></Image>
                                 <View style={{marginHorizontal : 15}} >
                                     <Text style={{fontSize : 18}}>{item.title}</Text>
                                     <Text style={{color : '#717171'}}>Episode {item.ep} </Text>

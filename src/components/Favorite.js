@@ -13,7 +13,8 @@ export default class Favorite extends Component {
             height,
             width,
             favorite : [],
-            userId : ''
+            userId : '',
+            searchQuery : '',
             }
         }
 
@@ -40,16 +41,31 @@ export default class Favorite extends Component {
         console.log(this.state.userId)
     }
 
+    handleInputSearch(text){
+        this.setState({
+            searchQuery : text
+        })
+    }
+
+    handleSearch(){
+        this.props.navigation.navigate('Search', {query : this.state.searchQuery})
+        this.setState({
+            searchQuery : ''
+        })
+    }
+
     render(){
       return (
         <View style={{width : this.state.width, height : this.state.height}}>
                 <View style={{flex : 1}}>
-                    <View style={{flex: 1,  marginBottom : 20, justifyContent : "center"}}>
-                        <View style={{borderWidth : 2, borderColor : '#2a2b2b', borderRadius : 15, flexDirection : "row", alignItems : "center", height : 40, marginHorizontal : 20, marginTop : 20}}>
+                <View style={{flex: 1,  marginBottom : 5, justifyContent : "center",}}>
+                        <View style={{borderWidth : 2, borderColor : '#2a2b2b', borderRadius : 15, flexDirection : "row", alignItems : "center", height : 40, marginHorizontal : 20, marginTop : 5}}>
                             <View style={{flex : 1, fontSize : 16, marginLeft : 15, height : 40}} >
-                                <TextInput ></TextInput>
+                                <TextInput onChangeText={(text) => this.handleInputSearch(text)} value={this.state.searchQuery} ></TextInput>
                             </View>
-                            <FontAwesome5 name="search" size={24} style={{color : 'lime', marginRight : 15}} />
+                            <TouchableOpacity onPress={() => this.handleSearch()}>
+                                <FontAwesome5 name="search" size={24} style={{color : 'lime', marginRight : 15}} />
+                            </TouchableOpacity>
                         </View>
                     </View>
                     <View style={{flex: 13}}>

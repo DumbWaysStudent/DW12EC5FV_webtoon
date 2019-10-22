@@ -16,6 +16,7 @@ import EditWebToon from './src/components/EditWebToon'
 import EditEpisode from './src/components/EditEpisode'
 import FatchData from './src/components/fatchData'
 import FatchDataL from './src/components/fatchDataL'
+import Search from './src/components/Search'
 
 // Option untuk handler Image dari image picker
 
@@ -32,7 +33,8 @@ const appStack = createStackNavigator(
   {
     HomeScreen,
     Details,
-    EpisodeDetails
+    EpisodeDetails,
+    Search
   }, {
     headerMode : 'none',
     initialRouteName : 'HomeScreen'
@@ -42,7 +44,6 @@ const appStack = createStackNavigator(
 const profileStack = createStackNavigator(
   {
     Profile,
-    ProfileEdit,
     CreationScreen,
     CreationScreenDetails,
     CreateEpisode,
@@ -54,11 +55,21 @@ const profileStack = createStackNavigator(
   }
 )
 
+const profileEditStack = createStackNavigator(
+  {
+    ProfileEdit
+  }, {
+    initialRouteName : 'ProfileEdit',
+    headerMode : "none"
+  }
+)
+
 const favStack = createStackNavigator(
   {
     Favorite,
     Details,
-    EpisodeDetails
+    EpisodeDetails,
+    Search
   },
   {
     headerMode : 'none'
@@ -73,7 +84,11 @@ const authStack = createStackNavigator({
 
 const fatchStack = createStackNavigator({
   FatchData,
-  FatchDataL
+  FatchDataL,
+  Search
+}, {
+  initialRouteName : 'Search',
+  headerMode : 'none'
 })
 
 const AppContainer = createAppContainer(
@@ -83,10 +98,11 @@ const AppContainer = createAppContainer(
       authStack,
       favStack,
       profileStack,
-      fatchStack
+      fatchStack,
+      profileEditStack
     },
     {
-      initialRouteName: 'authStack',
+      initialRouteName: 'appStack',
     }
   )
 );

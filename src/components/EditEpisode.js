@@ -1,17 +1,9 @@
 import React, { Component } from 'react';
-import { Text, View, Image, Dimensions, TouchableOpacity, ScrollView, FlatList } from 'react-native';
+import { Text, View, Image, Dimensions, TouchableOpacity, FlatList, Button, TextInput } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import { TextInput } from 'react-native-gesture-handler';
 import ImagePicker from 'react-native-image-picker';
-
-const options = {
-    title: 'Choose Image',
-    takePhotoButtonTitle : null,
-    storageOptions: {
-      skipBackup: true,
-      path: 'images',
-    },
-  };
+import Axios from "axios"
+import AsyncStorage from '@react-native-community/async-storage'
 
 export default class EditEpisode extends Component {
 
@@ -23,64 +15,77 @@ export default class EditEpisode extends Component {
             width,
             isEditVisible : false,
             isRemoveVisable : true,
-            imageAdd : [
-            {
-                ep : 1,
-                url : 'https://swebtoon-phinf.pstatic.net/20180421_269/1524270316069kkN5z_JPEG/10_EC8DB8EB84A4EC9DBC_ipad.jpg'
-            }, {
-                ep : 2,
-                url : 'https://swebtoon-phinf.pstatic.net/20150409_113/14285729559588eQUu_JPEG/EC8DB8EB84A4EC9DBC_ipad.jpg'
-            }, {
-                ep : 3,
-                url : 'https://swebtoon-phinf.pstatic.net/20150910_74/14418733461392XSwh_JPEG/_EB93BBEB80AF_EBA38CEABCA5_E29587EABCB1_EB9384EB84B0_ipa.jpg'
-            }, {
-                ep : 4,
-                url : 'https://swebtoon-phinf.pstatic.net/20160408_183/1460116907063qmNYD_JPEG/EC8DB8EB84A4EC9DBC_ipad.jpg'
-            }, {
-                ep : 5,
-                url : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSowh3MiTMolMGlNAwKjTt10_ugN5Yw_FyrCBJDNEyV7XU9ivsj'
-            }, {
-                ep : 6,
-                url : 'https://swebtoon-phinf.pstatic.net/20150515_169/1431694184798zYYRO_JPEG/510.jpg'
-            }, {
-                ep : 7,
-                url : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7Yfi0_-ByHOcXrDRC-JQ7wdn7_Ug1FZCheJJgWbiX4wdQZXAx'
-            }, {
-                ep : 8,
-                url : 'https://swebtoon-phinf.pstatic.net/20161006_238/1475757055763l1sqp_JPEG/thumb_ipad.jpg'
-            }, {
-                ep : 9,
-                url : 'https://swebtoon-phinf.pstatic.net/20190124_111/1548319240514DXnqg_JPEG/10_EC8DB8EB84A4EC9DBC_ipad.jpg'
-            }
-            ]
+            imageAdd : [],
+            token : '',
+            userName : '',
+            userId : '',
         }
     }
 
-    handleChangeAvatar = () => {
-        ImagePicker.showImagePicker(options, (response) => {
-            console.log('Response = ', response.fileName);
-
-            if (response.didCancel) {
-              console.log('User cancelled image picker');
-            } else if (response.error) {
-              console.log('ImagePicker Error: ', response.error);
-            } else if (response.customButton) {
-              console.log('User tapped custom button: ', response.customButton);
-            } else {
-          
-              // You can also display the image using data:
-              // const source = { uri: 'data:image/jpeg;base64,' + response.data };
-              var obj = {}
-              var len = this.state.imageAdd.length - 1
-              obj['ep'] = this.state.imageAdd[len].ep + 1
-              obj['url'] = 'data:image/jpeg;base64,' + response.data
-              this.state.imageAdd.push(obj)
-              this.state.imageAdd
-              this.setState({
-                imageAdd : this.state.imageAdd,
-              });
+    uploadHandler = () => {
+        var options = {
+            title: 'Select Image',
+            noData : true,
+            storageOptions: {
+             skipBackup: true,
+             path: 'images',
+             waitUntilSaved : true,
+             cameraRoll :true,
             }
-        });
+         }
+
+        ImagePicker.showImagePicker(options, (response) => {
+            // console.log('Response = ', response)
+            if(response.didCancel){
+                console.log('User Cancelled image piceker');
+            } else if (response.error){
+                console.log('Imagepicker Error : ', response.error)
+            } else if (response.customButton){
+                console.log("User tapped custom button : ", response.customButton)
+            } else {
+                // console.log('User Selected a file from camera or gallery', response)
+                const imgFile = new FormData()
+                // data.append('name', 'avatar')
+                imgFile.append('fileData', {
+                    uri : response.uri,
+                    type : response.type,
+                    name : response.fileName
+                })
+                const config = {
+                    method : 'POST',
+                    header : {
+                        'Accept' : 'application/json',
+                        'Content-Type' : 'multipart/form-data'
+                    }, 
+                    data : imgFile
+                }
+                this.setData(config)
+            }
+        })
+    }
+
+    setData = async (configFile) => {
+        const page = await Axios("http://192.168.1.12:5000/upload", configFile)
+        const data = await {}
+        data['imgurl'] = await "http://192.168.1.12:5000/file/images/" + page.data.name
+        data['pages'] = await this.state.imageAdd.length + 1
+        this.addPageHandler(data)
+    }
+
+    addPageHandler = async (fileData) => {
+        var data = await fileData
+        var config = {
+            method : 'POST',
+            headers: {
+                // "Accept": "application/json",
+                "Content-type": "application/json",
+                "Authorization": "Bearer " + this.state.token
+            },
+            data
+        }
+        await Axios("http://192.168.1.12:5000/api/v1/user/2/wehtoon/" + this.props.navigation.getParam('chapterId') + "/episode/" + this.props.navigation.getParam('comicId') + "/image", config)
+        this.getMyPages()
+        
     }
 
     handleRemove = (index) => {
@@ -102,6 +107,48 @@ export default class EditEpisode extends Component {
                 isEditVisible : false
             })
         }
+    }
+
+    async setItem(){
+        this.setState({
+            token : await AsyncStorage.getItem('userToken'),
+            userName : await AsyncStorage.getItem('userName'),
+            userId : await AsyncStorage.getItem('userId'),
+        } )
+    }
+    
+    getMyPages = async () => {
+        await this.setItem()
+        const config = {
+            method : 'get',
+            headers: {
+                // "Accept": "application/json",
+                "Content-type": "application/json",
+                "Authorization": "Bearer " + this.state.token
+            }
+        }
+        
+        const getPages = await Axios('http://192.168.1.12:5000/api/v1/user/1/wehtoon/' + this.props.navigation.getParam('comicId') + '/episode/' + this.props.navigation.getParam('title') + '/images', config)
+        await this.setState({
+            imageAdd : getPages.data
+        })
+    }
+
+    handleRemove = async (title, page) => {
+        const config = {
+            method : 'DELETE',
+            headers: {
+                // "Accept": "application/json",
+                "Content-type": "application/json",
+                "Authorization": "Bearer " + this.state.token
+            }
+        }
+        await Axios('http://192.168.1.12:5000/api/v1/user/1/wehtoon/1/episode/' + title + '/image/' + page , config)
+        this.getMyPages()
+    }
+
+    componentDidMount(){
+        this.getMyPages()
     }
 
     render(){
@@ -128,13 +175,13 @@ export default class EditEpisode extends Component {
                             data={this.state.imageAdd}
                             renderItem={({item, index}) =>
                             <TouchableOpacity style={{flexDirection : 'row', marginVertical : 10, marginHorizontal : 10, alignItems : 'center', borderWidth : 0.5, borderColor : 'black'}}>
-                                <Image source={{uri : item.url}} style={{width : 100, height : 100, borderWidth : 1, borderColor : 'black'}}></Image>
+                                <Image source={{uri : item.imgurl}} style={{width : 100, height : 100, borderWidth : 1, borderColor : 'black'}}></Image>
                                 <View style={{marginHorizontal : 15}} >
                                     <Text style={{fontSize : 18}}>{item.title}</Text>
-                                    <Text style={{color : '#717171'}}>Image {item.ep} </Text>
+                                    <Text style={{color : '#717171'}}>Image {item.pages} </Text>
                                     {
                                         this.state.isRemoveVisable == true ? 
-                                        <TouchableOpacity style={{backgroundColor : '#eb302d', padding : 5, borderRadius :5, width : 100}} onPress={() => this.handleRemove(index)} >
+                                        <TouchableOpacity style={{backgroundColor : '#eb302d', padding : 5, borderRadius :5, width : 100}} onPress={() => this.handleRemove(item.titleId, item.pages)} >
                                             <Text>Remove</Text>
                                         </TouchableOpacity> : null
                                     }
@@ -146,8 +193,8 @@ export default class EditEpisode extends Component {
                 </View>
 
                 {/* Tombol Tambah */}
-                <TouchableOpacity style={{height : 50, borderColor : 'black', borderWidth : 1, position : 'absolute', bottom : 30, width : '90%', alignSelf : "center", alignItems : "center", justifyContent : 'center', backgroundColor : 'white'}} onPress={() => this.handleChangeAvatar()}>
-                    <Text>Add Episode + </Text>
+                <TouchableOpacity style={{height : 50, borderColor : 'black', borderWidth : 1, position : 'absolute', bottom : 30, width : '90%', alignSelf : "center", alignItems : "center", justifyContent : 'center', backgroundColor : 'white'}} onPress={() => this.uploadHandler()}>
+                    <Text>Add Page + </Text>
                 </TouchableOpacity>
             </View>
         )

@@ -19,14 +19,14 @@ class HomeScreen extends Component {
             width,
             interval : null,
             position : 1,
-            isLogin : false,
             banners : [],
             favorite : [],
-            suggest : [],
+            comic : [],
             userName : '',
             token : '',
             userId : '',
-            userToken : ''
+            userToken : '',
+            searchQuery : '',
         }
     }
 
@@ -51,7 +51,6 @@ class HomeScreen extends Component {
             token : await AsyncStorage.getItem('userToken'),
             userName : await AsyncStorage.getItem('userName'),
             userId : await AsyncStorage.getItem('userId'),
-            userToken : await "Bearer " + this.state.token
         } )
 
     }
@@ -61,15 +60,15 @@ class HomeScreen extends Component {
         // await console.log(this.state.)
         await axios.get('http://192.168.1.12:5000/api/v1/wehtoons')
             .then(res => {
-                const suggest = res.data;
-                this.setState({ suggest });
+                const comic = res.data;
+                this.setState({ comic });
             })
             .catch(err => console.log(err))
             .finally(() => {
                 for(var i = 1; i < 4; i++){
                     let obj ={}
-                    obj['url'] = this.state.suggest[i].imgurl
-                    obj['title'] = this.state.suggest[i].title
+                    obj['url'] = this.state.comic[i].imgurl
+                    obj['title'] = this.state.comic[i].title
                     this.state.banners.push(obj)
                     console.log(i)
                 }
@@ -96,17 +95,34 @@ class HomeScreen extends Component {
         this.props.navigation.navigate('favStack')
     }
 
+    handleInputSearch(text){
+        this.setState({
+            searchQuery : text
+        })
+    }
+
+    handleSearch(){
+        this.props.navigation.navigate('Search', {query : this.state.searchQuery})
+        this.setState({
+            searchQuery : ''
+        })
+    }
+
+
+
     render() {
 
         return (
             <View style={{width : this.state.width, height : this.state.height}}>
                 <View style={{flex : 1}}>
-                    <View style={{flex: 1,  marginBottom : 20, justifyContent : "center"}}>
-                        <View style={{borderWidth : 2, borderColor : '#2a2b2b', borderRadius : 15, flexDirection : "row", alignItems : "center", height : 40, marginHorizontal : 20, marginTop : 20}}>
+                    <View style={{flex: 1,  marginBottom : 5, justifyContent : "center",}}>
+                        <View style={{borderWidth : 2, borderColor : '#2a2b2b', borderRadius : 15, flexDirection : "row", alignItems : "center", height : 40, marginHorizontal : 20, marginTop : 5}}>
                             <View style={{flex : 1, fontSize : 16, marginLeft : 15, height : 40}} >
-                                <TextInput ></TextInput>
+                                <TextInput onChangeText={(text) => this.handleInputSearch(text)} value={this.state.searchQuery} ></TextInput>
                             </View>
-                            <FontAwesome5 name="search" size={24} style={{color : 'lime', marginRight : 15}} />
+                            <TouchableOpacity onPress={() => this.handleSearch()}>
+                                <FontAwesome5 name="search" size={24} style={{color : 'lime', marginRight : 15}} />
+                            </TouchableOpacity>
                         </View>
                     </View>
                     <View style={{flex: 13}}>
@@ -141,7 +157,7 @@ class HomeScreen extends Component {
                                 {/* Ini adalah option All */}
                                 <Text style={{fontSize : 25, fontWeight : 'bold', color : '#4d4f4e', marginLeft : 20}}>ALL</Text>
                                 <FlatList
-                                    data={this.state.suggest}
+                                    data={this.state.comic}
                                     renderItem={({ item, index }) => {
                                     return (
                                     

@@ -3,6 +3,8 @@ import { Text, View, Image, Dimensions, TouchableOpacity, ScrollView, FlatList }
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { TextInput } from 'react-native-gesture-handler';
 import ImagePicker from 'react-native-image-picker';
+import Axios from "axios"
+import AsyncStorage from '@react-native-community/async-storage'
 
 const options = {
     title: 'Choose Image',
@@ -23,35 +25,7 @@ export default class EditWebToon extends Component {
             width,
             isEditVisible : false,
             isRemoveVisable : true,
-            imageAdd : [
-            {
-                ep : 1,
-                url : 'https://swebtoon-phinf.pstatic.net/20180421_269/1524270316069kkN5z_JPEG/10_EC8DB8EB84A4EC9DBC_ipad.jpg'
-            }, {
-                ep : 2,
-                url : 'https://swebtoon-phinf.pstatic.net/20150409_113/14285729559588eQUu_JPEG/EC8DB8EB84A4EC9DBC_ipad.jpg'
-            }, {
-                ep : 3,
-                url : 'https://swebtoon-phinf.pstatic.net/20150910_74/14418733461392XSwh_JPEG/_EB93BBEB80AF_EBA38CEABCA5_E29587EABCB1_EB9384EB84B0_ipa.jpg'
-            }, {
-                ep : 4,
-                url : 'https://swebtoon-phinf.pstatic.net/20160408_183/1460116907063qmNYD_JPEG/EC8DB8EB84A4EC9DBC_ipad.jpg'
-            }, {
-                ep : 5,
-                url : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSowh3MiTMolMGlNAwKjTt10_ugN5Yw_FyrCBJDNEyV7XU9ivsj'
-            }, {
-                ep : 6,
-                url : 'https://swebtoon-phinf.pstatic.net/20150515_169/1431694184798zYYRO_JPEG/510.jpg'
-            }, {
-                ep : 7,
-                url : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7Yfi0_-ByHOcXrDRC-JQ7wdn7_Ug1FZCheJJgWbiX4wdQZXAx'
-            }, {
-                ep : 8,
-                url : 'https://swebtoon-phinf.pstatic.net/20161006_238/1475757055763l1sqp_JPEG/thumb_ipad.jpg'
-            }, {
-                ep : 9,
-                url : 'https://swebtoon-phinf.pstatic.net/20190124_111/1548319240514DXnqg_JPEG/10_EC8DB8EB84A4EC9DBC_ipad.jpg'
-            }
+            chapter : [
             ]
         }
     }
@@ -104,6 +78,41 @@ export default class EditWebToon extends Component {
         }
     }
 
+    handleComicClick = (chapter, titleId) => {
+        this.props.navigation.navigate('EditEpisode', {comicId : this.props.navigation.getParam('comicId'), chapterId : chapter, title : titleId })
+    }
+
+    async setItem(){
+        this.setState({
+            token : await AsyncStorage.getItem('userToken'),
+            userName : await AsyncStorage.getItem('userName'),
+            userId : await AsyncStorage.getItem('userId'),
+            // userToken : await "Bearer " + this.state.token
+        } )
+    }
+    
+    getMyEpisode = async () => {
+        await this.setItem()
+        await console.log(this.state.userName)
+        const config = {
+            method : 'get',
+            headers: {
+                // "Accept": "application/json",
+                "Content-type": "application/json",
+                "Authorization": "Bearer " + this.state.token
+            }
+        }
+        const getChapter = await Axios('http://192.168.1.12:5000/api/v1/user/1/wehtoon/'+ this.props.navigation.getParam('comicId') +'/episode', config)
+        await this.setState({
+            chapter : getChapter.data
+        })
+        console.log(getChapter.data)
+    }
+
+    componentDidMount(){
+        this.getMyEpisode()
+    }
+
     render(){
         return (
             <View style={{width : this.state.width, height : this.state.height}}>
@@ -125,25 +134,16 @@ export default class EditWebToon extends Component {
                     </View>
                     <View style={{flex: 1, marginBottom : 80}}>
                         <FlatList 
-                            data={this.state.imageAdd}
+                            data={this.state.chapter}
                             renderItem={({item, index}) =>
-                            <TouchableOpacity style={{flexDirection : 'row', marginVertical : 10, marginHorizontal : 10, alignItems : 'center', borderWidth : 0.5, borderColor : 'black'}}>
-                                <Image source={{uri : item.url}} style={{width : 100, height : 100, borderWidth : 1, borderColor : 'black'}}></Image>
+                            <TouchableOpacity style={{flexDirection : 'row', marginVertical : 10, marginHorizontal : 10, alignItems : 'center', borderWidth : 0.5, borderColor : 'black'}} onPress={() => this.handleComicClick(item.id, item.chapterId)} >
+                                <Image source={{uri : item.imgurl}} style={{width : 100, height : 100, borderWidth : 1, borderColor : 'black'}}></Image>
                                 <View style={{marginHorizontal : 15}} >
                                     <Text style={{fontSize : 18}}>{item.title}</Text>
-                                    <Text style={{color : '#717171'}}>Episode {item.ep} </Text>
-                                    {
-                                        this.state.isRemoveVisable == true ? 
-                                        <TouchableOpacity style={{backgroundColor : '#eb302d', padding : 5, borderRadius :5, width : 100}} onPress={() => this.handleRemove(index)} >
+                                    <Text style={{color : '#717171'}}>{item.titleEpisodes}</Text>
+                                    <TouchableOpacity style={{backgroundColor : '#eb302d', padding : 5, borderRadius :5, width : 100}} onPress={() => this.handleRemove(index)} >
                                             <Text>Remove</Text>
-                                        </TouchableOpacity> : null
-                                    }
-                                    {
-                                        this.state.isEditVisible == true ?
-                                        <TouchableOpacity style={{backgroundColor : '#85eb2d', padding : 5, borderRadius :5, width : 100}} onPress={() => this.props.navigation.navigate('EditEpisode')} >
-                                            <Text>Edit</Text>
-                                        </TouchableOpacity> : null
-                                    }
+                                    </TouchableOpacity>
                                 </View>
                             </TouchableOpacity>
                             }
@@ -152,9 +152,6 @@ export default class EditWebToon extends Component {
                 </View>
 
                 {/* Tombol Tambah */}
-                <TouchableOpacity style={{height : 50, borderColor : 'black', borderWidth : 1, position : 'absolute', bottom : 90, width : '90%', alignSelf : "center", alignItems : "center", justifyContent : 'center', backgroundColor : 'white'}} onPress={() => this.handleEdit()}>
-                    <Text>Edit </Text>
-                </TouchableOpacity>
                 <TouchableOpacity style={{height : 50, borderColor : 'black', borderWidth : 1, position : 'absolute', bottom : 30, width : '90%', alignSelf : "center", alignItems : "center", justifyContent : 'center', backgroundColor : 'white'}} onPress={() => this.handleChangeAvatar()}>
                     <Text>Add Episode + </Text>
                 </TouchableOpacity>
