@@ -5,7 +5,7 @@ import ImagePicker from 'react-native-image-picker';
 import Axios from "axios"
 import AsyncStorage from '@react-native-community/async-storage'
 
-export default class CreationScreen extends Component {
+export default class ComicCreationScreen extends Component {
 
     constructor(){
         super()

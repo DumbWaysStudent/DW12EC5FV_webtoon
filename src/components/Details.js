@@ -85,7 +85,7 @@ export default class Details extends Component {
                                 renderItem={({ item }) =>{
                                     return(
                                     <TouchableOpacity style={{flexDirection : 'row', borderWidth : 0.5, borderStyle : 'solid', borderColor : '#ebebeb'}} onPress={() => this.handleChapterPages(item.comic, item.chapterId, item.titleEpisodes)} >
-                                        <Image source={{uri : item.imgurl_episodes}} style={{width : 100, height : 100, borderRadius : 5}} />
+                                        <Image source={{uri : item.imgurl}} style={{width : 100, height : 100, borderRadius : 5}} />
                                         <View style={{justifyContent : 'center', paddingLeft : 15}}>
                                             <Text style={{fontSize : 18}}>{ item.titleEpisodes }</Text>
                                             <View style={{flexDirection : "row", }}>

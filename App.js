@@ -10,13 +10,14 @@ import ProfileEdit from './src/components/ProfileEdit'
 import Details from './src/components/Details'
 import EpisodeDetails from './src/components/EpisodeDetails'
 import CreationScreen from './src/components/CreationScreen'
-import CreationScreenDetails from './src/components/CreationScreenDetails'
+import ComicCreationScreen from './src/components/ComicCreationScreen'
 import CreateEpisode from './src/components/CreateEpisode'
 import EditWebToon from './src/components/EditWebToon'
 import EditEpisode from './src/components/EditEpisode'
 import FatchData from './src/components/fatchData'
 import FatchDataL from './src/components/fatchDataL'
 import Search from './src/components/Search'
+import AddComicScreen from './src/components/AddComicScreen'
 
 // Option untuk handler Image dari image picker
 
@@ -45,10 +46,11 @@ const profileStack = createStackNavigator(
   {
     Profile,
     CreationScreen,
-    CreationScreenDetails,
+    ComicCreationScreen,
     CreateEpisode,
     EditWebToon,
-    EditEpisode
+    EditEpisode,
+    AddComicScreen
   }, {
     initialRouteName : 'Profile',
     headerMode : "none"

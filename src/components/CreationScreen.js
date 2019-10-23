@@ -84,7 +84,7 @@ export default class CreationScreen extends Component {
                 </View>
 
                 {/* Tombol Tambah */}
-                <TouchableOpacity style={{height : 50, width : 50, position : 'absolute',bottom : 50, right : 25,backgroundColor : 'white', borderRadius: 50 / 2, overflow: "hidden", borderWidth: 3, alignItems : "center"}} onPress={()=> this.props.navigation.navigate('CreationScreenDetails')} >
+                <TouchableOpacity style={{height : 50, width : 50, position : 'absolute',bottom : 50, right : 25,backgroundColor : 'white', borderRadius: 50 / 2, overflow: "hidden", borderWidth: 3, alignItems : "center"}} onPress={()=> this.props.navigation.navigate('ComicCreationScreen')} >
                     <FontAwesome5 name='plus' size={44} />
                 </TouchableOpacity>
             </View>

@@ -1,19 +1,9 @@
 import React, { Component } from 'react';
-import { Text, View, Image, Dimensions, TouchableOpacity, ScrollView, FlatList } from 'react-native';
+import { Text, View, Image, Dimensions, TouchableOpacity, ScrollView, FlatList, TextInput } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import { TextInput } from 'react-native-gesture-handler';
 import ImagePicker from 'react-native-image-picker';
 import Axios from "axios"
 import AsyncStorage from '@react-native-community/async-storage'
-
-const options = {
-    title: 'Choose Image',
-    takePhotoButtonTitle : null,
-    storageOptions: {
-      skipBackup: true,
-      path: 'images',
-    },
-  };
 
 export default class EditWebToon extends Component {
 
@@ -25,43 +15,25 @@ export default class EditWebToon extends Component {
             width,
             isEditVisible : false,
             isRemoveVisable : true,
-            chapter : [
-            ]
+            chapter : [],
+            token : '',
+            userId : '',
+            userName : '',
         }
     }
 
-    handleChangeAvatar = () => {
-        ImagePicker.showImagePicker(options, (response) => {
-            console.log('Response = ', response.fileName);
-
-            if (response.didCancel) {
-              console.log('User cancelled image picker');
-            } else if (response.error) {
-              console.log('ImagePicker Error: ', response.error);
-            } else if (response.customButton) {
-              console.log('User tapped custom button: ', response.customButton);
-            } else {
-          
-              // You can also display the image using data:
-              // const source = { uri: 'data:image/jpeg;base64,' + response.data };
-              var obj = {}
-              var len = this.state.imageAdd.length - 1
-              obj['ep'] = this.state.imageAdd[len].ep + 1
-              obj['url'] = 'data:image/jpeg;base64,' + response.data
-              this.state.imageAdd.push(obj)
-              this.state.imageAdd
-              this.setState({
-                imageAdd : this.state.imageAdd,
-              });
+    handleRemove = async (chapterId) => {
+        const comicId = this.props.navigation.getParam('comicId')
+        const config = {
+            method : 'delete',
+            headers: {
+                // "Accept": "application/json",
+                "Content-type": "application/json",
+                "Authorization": "Bearer " + this.state.token
             }
-        });
-    }
-
-    handleRemove = (index) => {
-        this.state.imageAdd.splice(index, 1)
-        this.setState({
-            imageAdd : this.state.imageAdd
-        })
+        }
+        await Axios('http://192.168.1.12:5000/api/v1/user/1/wehtoon/' + comicId + '/episode/' + chapterId, config)
+        this.getMyEpisode()
     }
 
     handleEdit = () => {
@@ -109,6 +81,10 @@ export default class EditWebToon extends Component {
         console.log(getChapter.data)
     }
 
+    addEpisode = () => {
+        this.props.navigation.navigate('AddComicScreen', {comicId : this.props.navigation.getParam('comicId')})
+    }
+
     componentDidMount(){
         this.getMyEpisode()
     }
@@ -142,7 +118,7 @@ export default class EditWebToon extends Component {
                                     <TouchableOpacity style={{backgroundColor : 'lime', padding : 5, borderRadius :2, width : 100, marginVertical : 2}} onPress={() => this.handleRemove(index)} >
                                             <Text>Edit Chapter</Text>
                                     </TouchableOpacity>
-                                    <TouchableOpacity style={{backgroundColor : '#eb302d', padding : 5, borderRadius :2, width : 100}} onPress={() => this.handleRemove(index)} >
+                                    <TouchableOpacity style={{backgroundColor : '#eb302d', padding : 5, borderRadius :2, width : 100}} onPress={() => this.handleRemove(item.chapterId)} >
                                             <Text>Remove</Text>
                                     </TouchableOpacity>
                                 </View>
@@ -153,7 +129,7 @@ export default class EditWebToon extends Component {
                 </View>
 
                 {/* Tombol Tambah */}
-                <TouchableOpacity style={{height : 50, borderColor : 'black', borderWidth : 1, position : 'absolute', bottom : 30, width : '90%', alignSelf : "center", alignItems : "center", justifyContent : 'center', backgroundColor : 'white'}} onPress={() => this.handleChangeAvatar()}>
+                <TouchableOpacity style={{height : 50, borderColor : 'black', borderWidth : 1, position : 'absolute', bottom : 30, width : '90%', alignSelf : "center", alignItems : "center", justifyContent : 'center', backgroundColor : 'white'}} onPress={() => this.addEpisode()}>
                     <Text>Add Episode + </Text>
                 </TouchableOpacity>
             </View>
