@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { createAppContainer, createSwitchNavigator  } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
+// Redux Provider
+import { Provider } from 'react-redux';
+import store from './src/components/ReduxSendBoxTwo'
+
 import Login from './src/components/Login'
 import HomeScreen from './src/components/Home'
 import Favorite from './src/components/Favorite'
@@ -14,21 +18,24 @@ import ComicCreationScreen from './src/components/ComicCreationScreen'
 import CreateEpisode from './src/components/CreateEpisode'
 import EditWebToon from './src/components/EditWebToon'
 import EditEpisode from './src/components/EditEpisode'
-import FatchData from './src/components/fatchData'
-import FatchDataL from './src/components/fatchDataL'
 import Search from './src/components/Search'
 import AddComicScreen from './src/components/AddComicScreen'
 
-// Option untuk handler Image dari image picker
+import FatchData from './src/components/fatchData'
+import FatchDataL from './src/components/fatchDataL'
+import ReduxSendBoxOne from './src/components/ReduxSendBoxOne'
+import ReduxSendBoxTwo from './src/components/ReduxSendBoxTwo'
 
-const options = {
-  title: 'Select Avatar',
-  customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
-  storageOptions: {
-    skipBackup: true,
-    path: 'images',
-  },
-};
+
+
+const reduxStack = createStackNavigator(
+  {
+    ReduxSendBoxOne,
+  }, {
+    headerMode : 'none',
+    initialRouteName : 'ReduxSendBoxOne'
+  }
+)
 
 const appStack = createStackNavigator(
   {
@@ -101,17 +108,22 @@ const AppContainer = createAppContainer(
       favStack,
       profileStack,
       fatchStack,
+      reduxStack,
       profileEditStack
     },
     {
-      initialRouteName: 'appStack',
+      initialRouteName: 'reduxStack',
     }
   )
 );
 
 export default class App extends Component {
   render(){
-    return <AppContainer />;
+    return (
+      <Provider store={store} >
+        <AppContainer />
+      </Provider>
+    )
   }
 }
 
